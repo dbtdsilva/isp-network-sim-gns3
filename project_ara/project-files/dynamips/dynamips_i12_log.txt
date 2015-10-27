@@ -1,0 +1,14 @@
+Oct 27 18:17:56.564 HYPERVISOR: Release 0.2.15-amd64/Linux (tag 2015060118)
+Oct 27 18:17:56.564 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 35479.
+Oct 27 18:17:56.577 HYPERVISOR: exec_cmd: hypervisor version 
+Oct 27 18:17:56.578 HYPERVISOR: exec_cmd: hypervisor uuid 
+Oct 27 18:17:56.581 HYPERVISOR: exec_cmd: hypervisor working_dir /home/ed1000/Google Drive/Universidade - Cadeiras/Arquitetura de Redes Avançadas/Projecto/project_ara/project-files/dynamips 
+Oct 27 18:17:56.581 GENERAL: working_dir=/home/ed1000/Google Drive/Universidade - Cadeiras/Arquitetura de Redes Avançadas/Projecto/project_ara/project-files/dynamips
+Oct 27 18:17:56.582 HYPERVISOR: exec_cmd: ethsw create netS1 
+Oct 27 18:17:57.399 HYPERVISOR: exec_cmd: nio create_udp udp-052cf29d-eb39-43e3-840e-56fac6cbcf03 10017 127.0.0.1 10016 
+Oct 27 18:17:57.400 HYPERVISOR: exec_cmd: ethsw add_nio netS1 udp-052cf29d-eb39-43e3-840e-56fac6cbcf03 
+Oct 27 18:17:57.406 HYPERVISOR: exec_cmd: ethsw set_access_port netS1 udp-052cf29d-eb39-43e3-840e-56fac6cbcf03 1 
+Oct 27 19:33:28.603 HYPERVISOR: exec_cmd: ethsw delete netS1 
+Oct 27 19:33:28.610 HYPERVISOR: exec_cmd: hypervisor stop 
+Oct 27 19:33:28.942 HYPERVISOR: Stopped.
+Oct 27 19:33:28.942 GENERAL: reset done.
