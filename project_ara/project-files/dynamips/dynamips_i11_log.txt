@@ -1,14 +1,14 @@
-Oct 27 18:17:56.551 HYPERVISOR: Release 0.2.15-amd64/Linux (tag 2015060118)
-Oct 27 18:17:56.551 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 34643.
-Oct 27 18:17:56.567 HYPERVISOR: exec_cmd: hypervisor version 
-Oct 27 18:17:56.568 HYPERVISOR: exec_cmd: hypervisor uuid 
-Oct 27 18:17:56.568 HYPERVISOR: exec_cmd: hypervisor working_dir /home/ed1000/Google Drive/Universidade - Cadeiras/Arquitetura de Redes Avançadas/Projecto/project_ara/project-files/dynamips 
-Oct 27 18:17:56.568 GENERAL: working_dir=/home/ed1000/Google Drive/Universidade - Cadeiras/Arquitetura de Redes Avançadas/Projecto/project_ara/project-files/dynamips
-Oct 27 18:17:56.569 HYPERVISOR: exec_cmd: ethsw create netL1 
-Oct 27 18:17:57.302 HYPERVISOR: exec_cmd: nio create_udp udp-e1d36399-5772-45f5-85be-7987752892a2 10010 127.0.0.1 10011 
-Oct 27 18:17:57.302 HYPERVISOR: exec_cmd: ethsw add_nio netL1 udp-e1d36399-5772-45f5-85be-7987752892a2 
-Oct 27 18:17:57.314 HYPERVISOR: exec_cmd: ethsw set_access_port netL1 udp-e1d36399-5772-45f5-85be-7987752892a2 1 
-Oct 27 19:33:28.603 HYPERVISOR: exec_cmd: ethsw delete netL1 
-Oct 27 19:33:28.622 HYPERVISOR: exec_cmd: hypervisor stop 
-Oct 27 19:33:28.947 HYPERVISOR: Stopped.
-Oct 27 19:33:28.947 GENERAL: reset done.
+Dec 30 15:36:01.177 HYPERVISOR: Release 0.2.14-amd64/Linux (tag 2014092320)
+Dec 30 15:36:01.177 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 56435.
+Dec 30 15:36:01.193 HYPERVISOR: exec_cmd: hypervisor version 
+Dec 30 15:36:01.194 HYPERVISOR: exec_cmd: hypervisor uuid 
+Dec 30 15:36:01.198 HYPERVISOR: exec_cmd: hypervisor working_dir /home/diogosilva/Documents/isp-network-sim_gns3/project_ara/project-files/dynamips 
+Dec 30 15:36:01.199 GENERAL: working_dir=/home/diogosilva/Documents/isp-network-sim_gns3/project_ara/project-files/dynamips
+Dec 30 15:36:01.200 HYPERVISOR: exec_cmd: ethsw create netL1 
+Dec 30 15:36:02.008 HYPERVISOR: exec_cmd: nio create_udp udp-934d0642-f463-4335-b200-b8401b1e965c 10014 127.0.0.1 10015 
+Dec 30 15:36:02.009 HYPERVISOR: exec_cmd: ethsw add_nio netL1 udp-934d0642-f463-4335-b200-b8401b1e965c 
+Dec 30 15:36:02.021 HYPERVISOR: exec_cmd: ethsw set_access_port netL1 udp-934d0642-f463-4335-b200-b8401b1e965c 1 
+Dec 30 15:46:11.447 HYPERVISOR: exec_cmd: ethsw delete netL1 
+Dec 30 15:46:11.460 HYPERVISOR: exec_cmd: hypervisor stop 
+Dec 30 15:46:11.819 HYPERVISOR: Stopped.
+Dec 30 15:46:11.820 GENERAL: reset done.

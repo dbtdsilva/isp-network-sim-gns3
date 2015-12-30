@@ -1,50 +1,55 @@
-Oct 27 18:17:55.945 HYPERVISOR: Release 0.2.15-amd64/Linux (tag 2015060118)
-Oct 27 18:17:55.945 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 51806.
-Oct 27 18:17:55.955 HYPERVISOR: exec_cmd: hypervisor version 
-Oct 27 18:17:55.955 HYPERVISOR: exec_cmd: hypervisor uuid 
-Oct 27 18:17:55.956 HYPERVISOR: exec_cmd: hypervisor working_dir /home/ed1000/Google Drive/Universidade - Cadeiras/Arquitetura de Redes Avançadas/Projecto/project_ara/project-files/dynamips 
-Oct 27 18:17:55.956 GENERAL: working_dir=/home/ed1000/Google Drive/Universidade - Cadeiras/Arquitetura de Redes Avançadas/Projecto/project_ara/project-files/dynamips
-Oct 27 18:17:55.956 HYPERVISOR: exec_cmd: vm create Sintra 2 c7200 
-Oct 27 18:17:55.956 VM: VM Sintra created.
-Oct 27 18:17:55.956 HYPERVISOR: exec_cmd: vm set_con_tcp_port Sintra 2002 
-Oct 27 18:17:55.956 HYPERVISOR: exec_cmd: c7200 get_mac_addr Sintra 
-Oct 27 18:17:55.957 HYPERVISOR: exec_cmd: vm get_status Sintra 
-Oct 27 18:17:55.957 HYPERVISOR: exec_cmd: vm slot_add_binding Sintra 0 0 C7200-IO-FE 
-Oct 27 18:17:55.957 HYPERVISOR: exec_cmd: vm get_status Sintra 
-Oct 27 18:17:55.957 HYPERVISOR: exec_cmd: vm slot_add_binding Sintra 1 0 PA-2FE-TX 
-Oct 27 18:17:55.957 HYPERVISOR: exec_cmd: c7200 set_mac_addr Sintra ca02.1829.0000 
-Oct 27 18:17:55.957 HYPERVISOR: exec_cmd: vm set_ios Sintra /home/ed1000/GNS3/images/IOS/c7200-adventerprisek9-mz.151-4.M2.image 
-Oct 27 18:17:55.958 HYPERVISOR: exec_cmd: vm set_nvram Sintra 512 
-Oct 27 18:17:55.958 HYPERVISOR: exec_cmd: vm get_status Sintra 
-Oct 27 18:17:55.958 HYPERVISOR: exec_cmd: vm slot_remove_binding Sintra 0 0 
-Oct 27 18:17:55.958 HYPERVISOR: exec_cmd: vm get_status Sintra 
-Oct 27 18:17:55.959 HYPERVISOR: exec_cmd: vm slot_add_binding Sintra 0 0 C7200-IO-2FE 
-Oct 27 18:17:55.959 HYPERVISOR: exec_cmd: vm set_disk0 Sintra 0 
-Oct 27 18:17:55.959 HYPERVISOR: exec_cmd: vm set_ram Sintra 512 
-Oct 27 18:17:55.960 HYPERVISOR: exec_cmd: vm get_status Sintra 
-Oct 27 18:17:55.960 HYPERVISOR: exec_cmd: vm set_idle_pc Sintra 0x60608040 
-Oct 27 18:17:55.961 HYPERVISOR: exec_cmd: vm set_config Sintra configs/i2_startup-config.cfg 
-Oct 27 18:17:56.522 HYPERVISOR: exec_cmd: vm set_ghost_status Sintra 2 
-Oct 27 18:17:56.530 HYPERVISOR: exec_cmd: vm set_ghost_file Sintra c7200-adventerprisek9-mz.151-4.M2.image-512.ghost 
-Oct 27 18:17:57.152 HYPERVISOR: exec_cmd: nio create_udp udp-7808d5a2-19f1-4536-9082-e731a22d3b79 10000 127.0.0.1 10001 
-Oct 27 18:17:57.153 HYPERVISOR: exec_cmd: vm slot_add_nio_binding Sintra 0 1 udp-7808d5a2-19f1-4536-9082-e731a22d3b79 
-Oct 27 18:17:57.153 HYPERVISOR: exec_cmd: vm get_status Sintra 
-Oct 27 18:17:57.239 HYPERVISOR: exec_cmd: nio create_udp udp-b796e616-2dbe-4c72-a1ec-58a0d09ded6b 10006 127.0.0.1 10007 
-Oct 27 18:17:57.239 HYPERVISOR: exec_cmd: vm slot_add_nio_binding Sintra 0 0 udp-b796e616-2dbe-4c72-a1ec-58a0d09ded6b 
-Oct 27 18:17:57.239 HYPERVISOR: exec_cmd: vm get_status Sintra 
-Oct 27 18:17:57.396 HYPERVISOR: exec_cmd: nio create_udp udp-c54d7468-b218-40f1-9736-0212689cbd01 10016 127.0.0.1 10017 
-Oct 27 18:17:57.400 HYPERVISOR: exec_cmd: vm slot_add_nio_binding Sintra 1 0 udp-c54d7468-b218-40f1-9736-0212689cbd01 
-Oct 27 18:17:57.400 HYPERVISOR: exec_cmd: vm get_status Sintra 
-Oct 27 18:17:59.865 HYPERVISOR: exec_cmd: vm get_status Sintra 
-Oct 27 18:17:59.865 HYPERVISOR: exec_cmd: vm start Sintra 
-Oct 27 19:33:06.009 HYPERVISOR: exec_cmd: vm extract_config Sintra 
-Oct 27 19:33:26.186 HYPERVISOR: exec_cmd: vm extract_config Sintra 
-Oct 27 19:33:29.036 HYPERVISOR: exec_cmd: vm get_status Sintra 
-Oct 27 19:33:29.037 HYPERVISOR: exec_cmd: vm stop Sintra 
-Oct 27 19:33:29.181 VM: VM Sintra shutdown.
-Oct 27 19:33:29.181 HYPERVISOR: exec_cmd: vm extract_config Sintra 
-Oct 27 19:33:29.181 HYPERVISOR: exec_cmd: vm delete Sintra 
-Oct 27 19:33:29.181 VM: VM Sintra destroyed.
-Oct 27 19:33:29.182 HYPERVISOR: exec_cmd: hypervisor stop 
-Oct 27 19:33:29.330 HYPERVISOR: Stopped.
-Oct 27 19:33:29.330 GENERAL: reset done.
+Dec 30 15:35:57.768 HYPERVISOR: Release 0.2.14-amd64/Linux (tag 2014092320)
+Dec 30 15:35:57.768 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 36104.
+Dec 30 15:35:57.786 HYPERVISOR: exec_cmd: hypervisor version 
+Dec 30 15:35:57.786 HYPERVISOR: exec_cmd: hypervisor uuid 
+Dec 30 15:35:57.795 HYPERVISOR: exec_cmd: hypervisor working_dir /home/diogosilva/Documents/isp-network-sim_gns3/project_ara/project-files/dynamips 
+Dec 30 15:35:57.795 GENERAL: working_dir=/home/diogosilva/Documents/isp-network-sim_gns3/project_ara/project-files/dynamips
+Dec 30 15:35:57.795 HYPERVISOR: exec_cmd: vm create Porto 4 c7200 
+Dec 30 15:35:57.795 VM: VM Porto created.
+Dec 30 15:35:57.796 HYPERVISOR: exec_cmd: vm set_con_tcp_port Porto 2004 
+Dec 30 15:35:57.796 HYPERVISOR: exec_cmd: c7200 get_mac_addr Porto 
+Dec 30 15:35:57.796 HYPERVISOR: exec_cmd: vm get_status Porto 
+Dec 30 15:35:57.796 HYPERVISOR: exec_cmd: vm slot_add_binding Porto 0 0 C7200-IO-FE 
+Dec 30 15:35:57.797 HYPERVISOR: exec_cmd: vm get_status Porto 
+Dec 30 15:35:57.797 HYPERVISOR: exec_cmd: vm slot_remove_binding Porto 0 0 
+Dec 30 15:35:57.797 HYPERVISOR: exec_cmd: vm get_status Porto 
+Dec 30 15:35:57.797 HYPERVISOR: exec_cmd: vm slot_add_binding Porto 0 0 C7200-IO-2FE 
+Dec 30 15:35:57.798 HYPERVISOR: exec_cmd: c7200 set_mac_addr Porto ca04.1899.0000 
+Dec 30 15:35:57.798 HYPERVISOR: exec_cmd: vm get_status Porto 
+Dec 30 15:35:57.798 HYPERVISOR: exec_cmd: vm set_idle_pc Porto 0x60608040 
+Dec 30 15:35:57.799 HYPERVISOR: exec_cmd: vm set_disk0 Porto 0 
+Dec 30 15:35:57.799 HYPERVISOR: exec_cmd: vm set_nvram Porto 512 
+Dec 30 15:35:57.800 HYPERVISOR: exec_cmd: vm set_ios Porto /media/universidade/CompTelematica/4thYear/ARA_ArquitecturaRedesAvancada/Pratica/OS_Images/IOS/c7200-adventerprisek9-mz.151-4.M2.image 
+Dec 30 15:35:57.800 HYPERVISOR: exec_cmd: vm get_status Porto 
+Dec 30 15:35:57.800 HYPERVISOR: exec_cmd: vm slot_add_binding Porto 1 0 PA-2FE-TX 
+Dec 30 15:35:57.801 HYPERVISOR: exec_cmd: vm set_ram Porto 512 
+Dec 30 15:35:57.801 HYPERVISOR: exec_cmd: vm set_config Porto configs/i4_startup-config.cfg 
+Dec 30 15:36:01.047 HYPERVISOR: exec_cmd: vm set_ghost_status Porto 2 
+Dec 30 15:36:01.072 HYPERVISOR: exec_cmd: vm set_ghost_file Porto c7200-adventerprisek9-mz.151-4.M2.image-512.ghost 
+Dec 30 15:36:01.859 HYPERVISOR: exec_cmd: nio create_udp udp-19d4a5f5-d6fb-46a3-9bf7-b7b1ed4c8600 10005 127.0.0.1 10003 
+Dec 30 15:36:01.860 HYPERVISOR: exec_cmd: vm slot_add_nio_binding Porto 0 0 udp-19d4a5f5-d6fb-46a3-9bf7-b7b1ed4c8600 
+Dec 30 15:36:01.861 HYPERVISOR: exec_cmd: vm get_status Porto 
+Dec 30 15:36:02.177 HYPERVISOR: exec_cmd: nio create_udp udp-88a9e07f-57c6-4734-bfac-f94006f70488 10019 127.0.0.1 10021 
+Dec 30 15:36:02.178 HYPERVISOR: exec_cmd: vm slot_add_nio_binding Porto 1 0 udp-88a9e07f-57c6-4734-bfac-f94006f70488 
+Dec 30 15:36:02.178 HYPERVISOR: exec_cmd: vm get_status Porto 
+Dec 30 15:38:37.042 HYPERVISOR: exec_cmd: vm get_status Porto 
+Dec 30 15:38:37.043 HYPERVISOR: exec_cmd: vm start Porto 
+Dec 30 15:39:16.499 HYPERVISOR: exec_cmd: vm get_status Porto 
+Dec 30 15:39:16.584 HYPERVISOR: exec_cmd: vm set_idle_pc_online Porto 0 0x632f1ae8 
+Dec 30 15:39:22.101 HYPERVISOR: exec_cmd: vm get_status Porto 
+Dec 30 15:39:22.102 HYPERVISOR: exec_cmd: vm set_idle_pc_online Porto 0 0x0 
+Dec 30 15:39:22.103 HYPERVISOR: exec_cmd: vm get_status Porto 
+Dec 30 15:39:22.105 HYPERVISOR: exec_cmd: vm get_idle_pc_prop Porto 0 
+Dec 30 15:40:02.263 HYPERVISOR: exec_cmd: vm get_status Porto 
+Dec 30 15:40:02.330 HYPERVISOR: exec_cmd: vm set_idle_pc_online Porto 0 0x63858e78 
+Dec 30 15:40:26.337 HYPERVISOR: exec_cmd: vm get_status Porto 
+Dec 30 15:40:26.358 HYPERVISOR: exec_cmd: vm stop Porto 
+Dec 30 15:40:26.504 VM: VM Porto shutdown.
+Dec 30 15:46:09.883 HYPERVISOR: exec_cmd: vm extract_config Porto 
+Dec 30 15:46:11.955 HYPERVISOR: exec_cmd: vm get_status Porto 
+Dec 30 15:46:11.957 HYPERVISOR: exec_cmd: vm extract_config Porto 
+Dec 30 15:46:11.961 HYPERVISOR: exec_cmd: vm delete Porto 
+Dec 30 15:46:11.961 VM: VM Porto destroyed.
+Dec 30 15:46:11.965 HYPERVISOR: exec_cmd: hypervisor stop 
+Dec 30 15:46:12.409 HYPERVISOR: Stopped.
+Dec 30 15:46:12.409 GENERAL: reset done.

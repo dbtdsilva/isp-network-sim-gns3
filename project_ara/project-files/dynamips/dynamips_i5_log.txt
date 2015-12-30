@@ -1,47 +1,55 @@
-Oct 27 18:17:55.977 HYPERVISOR: Release 0.2.15-amd64/Linux (tag 2015060118)
-Oct 27 18:17:55.977 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 48367.
-Oct 27 18:17:55.988 HYPERVISOR: exec_cmd: hypervisor version 
-Oct 27 18:17:55.988 HYPERVISOR: exec_cmd: hypervisor uuid 
-Oct 27 18:17:55.988 HYPERVISOR: exec_cmd: hypervisor working_dir /home/ed1000/Google Drive/Universidade - Cadeiras/Arquitetura de Redes Avançadas/Projecto/project_ara/project-files/dynamips 
-Oct 27 18:17:55.988 GENERAL: working_dir=/home/ed1000/Google Drive/Universidade - Cadeiras/Arquitetura de Redes Avançadas/Projecto/project_ara/project-files/dynamips
-Oct 27 18:17:55.989 HYPERVISOR: exec_cmd: vm create Faro 7 c7200 
-Oct 27 18:17:55.989 VM: VM Faro created.
-Oct 27 18:17:55.989 HYPERVISOR: exec_cmd: vm set_con_tcp_port Faro 2007 
-Oct 27 18:17:55.989 HYPERVISOR: exec_cmd: c7200 get_mac_addr Faro 
-Oct 27 18:17:55.990 HYPERVISOR: exec_cmd: vm get_status Faro 
-Oct 27 18:17:55.990 HYPERVISOR: exec_cmd: vm slot_add_binding Faro 0 0 C7200-IO-FE 
-Oct 27 18:17:55.990 HYPERVISOR: exec_cmd: vm get_status Faro 
-Oct 27 18:17:55.990 HYPERVISOR: exec_cmd: vm slot_add_binding Faro 1 0 PA-2FE-TX 
-Oct 27 18:17:55.990 HYPERVISOR: exec_cmd: c7200 set_mac_addr Faro ca07.1910.0000 
-Oct 27 18:17:55.991 HYPERVISOR: exec_cmd: vm set_ios Faro /home/ed1000/GNS3/images/IOS/c7200-adventerprisek9-mz.151-4.M2.image 
-Oct 27 18:17:55.991 HYPERVISOR: exec_cmd: vm set_nvram Faro 512 
-Oct 27 18:17:55.991 HYPERVISOR: exec_cmd: vm get_status Faro 
-Oct 27 18:17:55.992 HYPERVISOR: exec_cmd: vm slot_remove_binding Faro 0 0 
-Oct 27 18:17:55.992 HYPERVISOR: exec_cmd: vm get_status Faro 
-Oct 27 18:17:55.992 HYPERVISOR: exec_cmd: vm slot_add_binding Faro 0 0 C7200-IO-2FE 
-Oct 27 18:17:55.992 HYPERVISOR: exec_cmd: vm set_disk0 Faro 0 
-Oct 27 18:17:55.993 HYPERVISOR: exec_cmd: vm set_ram Faro 512 
-Oct 27 18:17:55.993 HYPERVISOR: exec_cmd: vm get_status Faro 
-Oct 27 18:17:55.993 HYPERVISOR: exec_cmd: vm set_idle_pc Faro 0x60608040 
-Oct 27 18:17:55.993 HYPERVISOR: exec_cmd: vm set_config Faro configs/i7_startup-config.cfg 
-Oct 27 18:17:56.535 HYPERVISOR: exec_cmd: vm set_ghost_status Faro 2 
-Oct 27 18:17:56.540 HYPERVISOR: exec_cmd: vm set_ghost_file Faro c7200-adventerprisek9-mz.151-4.M2.image-512.ghost 
-Oct 27 18:17:57.405 HYPERVISOR: exec_cmd: nio create_udp udp-f839ae6b-9989-4e2a-ab68-d6ab39f3c2b0 10018 127.0.0.1 10019 
-Oct 27 18:17:57.406 HYPERVISOR: exec_cmd: vm slot_add_nio_binding Faro 0 0 udp-f839ae6b-9989-4e2a-ab68-d6ab39f3c2b0 
-Oct 27 18:17:57.406 HYPERVISOR: exec_cmd: vm get_status Faro 
-Oct 27 18:17:57.656 HYPERVISOR: exec_cmd: nio create_udp udp-f7f418cd-c6a0-4b54-9522-29d4d02ae8d6 10033 127.0.0.1 10032 
-Oct 27 18:17:57.658 HYPERVISOR: exec_cmd: vm slot_add_nio_binding Faro 1 0 udp-f7f418cd-c6a0-4b54-9522-29d4d02ae8d6 
-Oct 27 18:17:57.659 HYPERVISOR: exec_cmd: vm get_status Faro 
-Oct 27 18:17:59.627 HYPERVISOR: exec_cmd: vm get_status Faro 
-Oct 27 18:17:59.629 HYPERVISOR: exec_cmd: vm start Faro 
-Oct 27 19:33:16.973 HYPERVISOR: exec_cmd: vm extract_config Faro 
-Oct 27 19:33:26.183 HYPERVISOR: exec_cmd: vm extract_config Faro 
-Oct 27 19:33:29.036 HYPERVISOR: exec_cmd: vm get_status Faro 
-Oct 27 19:33:29.037 HYPERVISOR: exec_cmd: vm stop Faro 
-Oct 27 19:33:29.138 VM: VM Faro shutdown.
-Oct 27 19:33:29.139 HYPERVISOR: exec_cmd: vm extract_config Faro 
-Oct 27 19:33:29.139 HYPERVISOR: exec_cmd: vm delete Faro 
-Oct 27 19:33:29.139 VM: VM Faro destroyed.
-Oct 27 19:33:29.140 HYPERVISOR: exec_cmd: hypervisor stop 
-Oct 27 19:33:29.374 HYPERVISOR: Stopped.
-Oct 27 19:33:29.374 GENERAL: reset done.
+Dec 30 15:35:57.861 HYPERVISOR: Release 0.2.14-amd64/Linux (tag 2014092320)
+Dec 30 15:35:57.861 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 60114.
+Dec 30 15:35:57.868 HYPERVISOR: exec_cmd: hypervisor version 
+Dec 30 15:35:57.868 HYPERVISOR: exec_cmd: hypervisor uuid 
+Dec 30 15:35:57.869 HYPERVISOR: exec_cmd: hypervisor working_dir /home/diogosilva/Documents/isp-network-sim_gns3/project_ara/project-files/dynamips 
+Dec 30 15:35:57.869 GENERAL: working_dir=/home/diogosilva/Documents/isp-network-sim_gns3/project_ara/project-files/dynamips
+Dec 30 15:35:57.869 HYPERVISOR: exec_cmd: vm create Faro 7 c7200 
+Dec 30 15:35:57.869 VM: VM Faro created.
+Dec 30 15:35:57.869 HYPERVISOR: exec_cmd: vm set_con_tcp_port Faro 2007 
+Dec 30 15:35:57.869 HYPERVISOR: exec_cmd: c7200 get_mac_addr Faro 
+Dec 30 15:35:57.869 HYPERVISOR: exec_cmd: vm get_status Faro 
+Dec 30 15:35:57.870 HYPERVISOR: exec_cmd: vm slot_add_binding Faro 0 0 C7200-IO-FE 
+Dec 30 15:35:57.870 HYPERVISOR: exec_cmd: vm get_status Faro 
+Dec 30 15:35:57.870 HYPERVISOR: exec_cmd: vm slot_remove_binding Faro 0 0 
+Dec 30 15:35:57.870 HYPERVISOR: exec_cmd: vm get_status Faro 
+Dec 30 15:35:57.870 HYPERVISOR: exec_cmd: vm slot_add_binding Faro 0 0 C7200-IO-2FE 
+Dec 30 15:35:57.871 HYPERVISOR: exec_cmd: c7200 set_mac_addr Faro ca07.1910.0000 
+Dec 30 15:35:57.871 HYPERVISOR: exec_cmd: vm get_status Faro 
+Dec 30 15:35:57.871 HYPERVISOR: exec_cmd: vm set_idle_pc Faro 0x60608040 
+Dec 30 15:35:57.871 HYPERVISOR: exec_cmd: vm set_disk0 Faro 0 
+Dec 30 15:35:57.871 HYPERVISOR: exec_cmd: vm set_nvram Faro 512 
+Dec 30 15:35:57.872 HYPERVISOR: exec_cmd: vm set_ios Faro /media/universidade/CompTelematica/4thYear/ARA_ArquitecturaRedesAvancada/Pratica/OS_Images/IOS/c7200-adventerprisek9-mz.151-4.M2.image 
+Dec 30 15:35:57.872 HYPERVISOR: exec_cmd: vm get_status Faro 
+Dec 30 15:35:57.872 HYPERVISOR: exec_cmd: vm slot_add_binding Faro 1 0 PA-2FE-TX 
+Dec 30 15:35:57.872 HYPERVISOR: exec_cmd: vm set_ram Faro 512 
+Dec 30 15:35:57.873 HYPERVISOR: exec_cmd: vm set_config Faro configs/i7_startup-config.cfg 
+Dec 30 15:36:01.141 HYPERVISOR: exec_cmd: vm set_ghost_status Faro 2 
+Dec 30 15:36:01.142 HYPERVISOR: exec_cmd: vm set_ghost_file Faro c7200-adventerprisek9-mz.151-4.M2.image-512.ghost 
+Dec 30 15:36:02.081 HYPERVISOR: exec_cmd: nio create_udp udp-7d3363a6-bcf2-4ea3-8290-5edd8e2ecf3c 10016 127.0.0.1 10017 
+Dec 30 15:36:02.087 HYPERVISOR: exec_cmd: vm slot_add_nio_binding Faro 0 0 udp-7d3363a6-bcf2-4ea3-8290-5edd8e2ecf3c 
+Dec 30 15:36:02.093 HYPERVISOR: exec_cmd: vm get_status Faro 
+Dec 30 15:36:02.244 HYPERVISOR: exec_cmd: nio create_udp udp-6b56cf00-9059-4954-a622-6ae69bd1f39f 10027 127.0.0.1 10025 
+Dec 30 15:36:02.246 HYPERVISOR: exec_cmd: vm slot_add_nio_binding Faro 1 0 udp-6b56cf00-9059-4954-a622-6ae69bd1f39f 
+Dec 30 15:36:02.247 HYPERVISOR: exec_cmd: vm get_status Faro 
+Dec 30 15:38:36.811 HYPERVISOR: exec_cmd: vm get_status Faro 
+Dec 30 15:38:36.816 HYPERVISOR: exec_cmd: vm start Faro 
+Dec 30 15:39:16.577 HYPERVISOR: exec_cmd: vm get_status Faro 
+Dec 30 15:39:16.584 HYPERVISOR: exec_cmd: vm set_idle_pc_online Faro 0 0x632f1ae8 
+Dec 30 15:39:45.321 HYPERVISOR: exec_cmd: vm get_status Faro 
+Dec 30 15:39:45.323 HYPERVISOR: exec_cmd: vm set_idle_pc_online Faro 0 0x0 
+Dec 30 15:39:45.325 HYPERVISOR: exec_cmd: vm get_status Faro 
+Dec 30 15:39:45.330 HYPERVISOR: exec_cmd: vm get_idle_pc_prop Faro 0 
+Dec 30 15:40:02.327 HYPERVISOR: exec_cmd: vm get_status Faro 
+Dec 30 15:40:02.331 HYPERVISOR: exec_cmd: vm set_idle_pc_online Faro 0 0x63858e78 
+Dec 30 15:40:26.030 HYPERVISOR: exec_cmd: vm get_status Faro 
+Dec 30 15:40:26.110 HYPERVISOR: exec_cmd: vm stop Faro 
+Dec 30 15:40:26.383 VM: VM Faro shutdown.
+Dec 30 15:46:09.886 HYPERVISOR: exec_cmd: vm extract_config Faro 
+Dec 30 15:46:11.956 HYPERVISOR: exec_cmd: vm get_status Faro 
+Dec 30 15:46:11.957 HYPERVISOR: exec_cmd: vm extract_config Faro 
+Dec 30 15:46:11.962 HYPERVISOR: exec_cmd: vm delete Faro 
+Dec 30 15:46:11.963 VM: VM Faro destroyed.
+Dec 30 15:46:11.966 HYPERVISOR: exec_cmd: hypervisor stop 
+Dec 30 15:46:11.986 HYPERVISOR: Stopped.
+Dec 30 15:46:11.986 GENERAL: reset done.

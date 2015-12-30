@@ -1,14 +1,14 @@
-Oct 27 18:17:56.658 HYPERVISOR: Release 0.2.15-amd64/Linux (tag 2015060118)
-Oct 27 18:17:56.658 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 54249.
-Oct 27 18:17:56.668 HYPERVISOR: exec_cmd: hypervisor version 
-Oct 27 18:17:56.668 HYPERVISOR: exec_cmd: hypervisor uuid 
-Oct 27 18:17:56.668 HYPERVISOR: exec_cmd: hypervisor working_dir /home/ed1000/Google Drive/Universidade - Cadeiras/Arquitetura de Redes Avançadas/Projecto/project_ara/project-files/dynamips 
-Oct 27 18:17:56.668 GENERAL: working_dir=/home/ed1000/Google Drive/Universidade - Cadeiras/Arquitetura de Redes Avançadas/Projecto/project_ara/project-files/dynamips
-Oct 27 18:17:56.668 HYPERVISOR: exec_cmd: ethsw create netA2 
-Oct 27 18:17:57.686 HYPERVISOR: exec_cmd: nio create_udp udp-4a715467-f4a1-477f-a159-71046771b523 10035 127.0.0.1 10034 
-Oct 27 18:17:57.686 HYPERVISOR: exec_cmd: ethsw add_nio netA2 udp-4a715467-f4a1-477f-a159-71046771b523 
-Oct 27 18:17:57.700 HYPERVISOR: exec_cmd: ethsw set_access_port netA2 udp-4a715467-f4a1-477f-a159-71046771b523 1 
-Oct 27 19:33:28.603 HYPERVISOR: exec_cmd: ethsw delete netA2 
-Oct 27 19:33:28.605 HYPERVISOR: exec_cmd: hypervisor stop 
-Oct 27 19:33:29.034 HYPERVISOR: Stopped.
-Oct 27 19:33:29.034 GENERAL: reset done.
+Dec 30 15:36:01.300 HYPERVISOR: Release 0.2.14-amd64/Linux (tag 2014092320)
+Dec 30 15:36:01.301 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 36752.
+Dec 30 15:36:01.319 HYPERVISOR: exec_cmd: hypervisor version 
+Dec 30 15:36:01.320 HYPERVISOR: exec_cmd: hypervisor uuid 
+Dec 30 15:36:01.320 HYPERVISOR: exec_cmd: hypervisor working_dir /home/diogosilva/Documents/isp-network-sim_gns3/project_ara/project-files/dynamips 
+Dec 30 15:36:01.320 GENERAL: working_dir=/home/diogosilva/Documents/isp-network-sim_gns3/project_ara/project-files/dynamips
+Dec 30 15:36:01.321 HYPERVISOR: exec_cmd: ethsw create netA1 
+Dec 30 15:36:02.399 HYPERVISOR: exec_cmd: nio create_udp udp-69631f81-3367-4287-bc3b-bfe763711170 10035 127.0.0.1 10034 
+Dec 30 15:36:02.400 HYPERVISOR: exec_cmd: ethsw add_nio netA1 udp-69631f81-3367-4287-bc3b-bfe763711170 
+Dec 30 15:36:02.412 HYPERVISOR: exec_cmd: ethsw set_access_port netA1 udp-69631f81-3367-4287-bc3b-bfe763711170 1 
+Dec 30 15:46:11.447 HYPERVISOR: exec_cmd: ethsw delete netA1 
+Dec 30 15:46:11.458 HYPERVISOR: exec_cmd: hypervisor stop 
+Dec 30 15:46:11.953 HYPERVISOR: Stopped.
+Dec 30 15:46:11.953 GENERAL: reset done.

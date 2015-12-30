@@ -1,63 +1,54 @@
-Oct 27 18:17:55.811 HYPERVISOR: Release 0.2.15-amd64/Linux (tag 2015060118)
-Oct 27 18:17:55.811 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 57266.
-Oct 27 18:17:55.821 HYPERVISOR: exec_cmd: hypervisor version 
-Oct 27 18:17:55.823 HYPERVISOR: exec_cmd: hypervisor uuid 
-Oct 27 18:17:55.823 HYPERVISOR: exec_cmd: hypervisor working_dir /home/ed1000/Google Drive/Universidade - Cadeiras/Arquitetura de Redes Avançadas/Projecto/project_ara/project-files/dynamips 
-Oct 27 18:17:55.823 GENERAL: working_dir=/home/ed1000/Google Drive/Universidade - Cadeiras/Arquitetura de Redes Avançadas/Projecto/project_ara/project-files/dynamips
-Oct 27 18:17:55.823 HYPERVISOR: exec_cmd: vm create Aveiro 6 c7200 
-Oct 27 18:17:55.823 VM: VM Aveiro created.
-Oct 27 18:17:55.824 HYPERVISOR: exec_cmd: vm set_con_tcp_port Aveiro 2006 
-Oct 27 18:17:55.824 HYPERVISOR: exec_cmd: c7200 get_mac_addr Aveiro 
-Oct 27 18:17:55.824 HYPERVISOR: exec_cmd: vm get_status Aveiro 
-Oct 27 18:17:55.824 HYPERVISOR: exec_cmd: vm slot_add_binding Aveiro 0 0 C7200-IO-FE 
-Oct 27 18:17:55.824 HYPERVISOR: exec_cmd: vm get_status Aveiro 
-Oct 27 18:17:55.825 HYPERVISOR: exec_cmd: vm slot_add_binding Aveiro 1 0 PA-2FE-TX 
-Oct 27 18:17:55.825 HYPERVISOR: exec_cmd: c7200 set_mac_addr Aveiro ca06.18e6.0000 
-Oct 27 18:17:55.825 HYPERVISOR: exec_cmd: vm set_ios Aveiro /home/ed1000/GNS3/images/IOS/c7200-adventerprisek9-mz.151-4.M2.image 
-Oct 27 18:17:55.826 HYPERVISOR: exec_cmd: vm set_nvram Aveiro 512 
-Oct 27 18:17:55.826 HYPERVISOR: exec_cmd: vm get_status Aveiro 
-Oct 27 18:17:55.826 HYPERVISOR: exec_cmd: vm slot_remove_binding Aveiro 0 0 
-Oct 27 18:17:55.826 HYPERVISOR: exec_cmd: vm get_status Aveiro 
-Oct 27 18:17:55.827 HYPERVISOR: exec_cmd: vm slot_add_binding Aveiro 0 0 C7200-IO-2FE 
-Oct 27 18:17:55.827 HYPERVISOR: exec_cmd: vm set_disk0 Aveiro 0 
-Oct 27 18:17:55.827 HYPERVISOR: exec_cmd: vm set_ram Aveiro 512 
-Oct 27 18:17:55.827 HYPERVISOR: exec_cmd: vm get_status Aveiro 
-Oct 27 18:17:55.827 HYPERVISOR: exec_cmd: vm set_idle_pc Aveiro 0x60608040 
-Oct 27 18:17:55.828 HYPERVISOR: exec_cmd: vm set_config Aveiro configs/i6_startup-config.cfg 
-Oct 27 18:17:55.829 HYPERVISOR: exec_cmd: vm create Ghost 0 c7200 
-Oct 27 18:17:55.829 VM: VM Ghost created.
-Oct 27 18:17:55.829 HYPERVISOR: exec_cmd: vm set_ios Ghost /home/ed1000/GNS3/images/IOS/c7200-adventerprisek9-mz.151-4.M2.image 
-Oct 27 18:17:55.829 HYPERVISOR: exec_cmd: vm set_ghost_status Ghost 1 
-Oct 27 18:17:55.830 HYPERVISOR: exec_cmd: vm set_ghost_file Ghost c7200-adventerprisek9-mz.151-4.M2.image-512.ghost 
-Oct 27 18:17:55.830 HYPERVISOR: exec_cmd: vm set_ram Ghost 512 
-Oct 27 18:17:55.830 HYPERVISOR: exec_cmd: vm get_status Ghost 
-Oct 27 18:17:55.856 HYPERVISOR: exec_cmd: vm start Ghost 
-Oct 27 18:17:56.272 HYPERVISOR: exec_cmd: vm get_status Ghost 
-Oct 27 18:17:56.272 HYPERVISOR: exec_cmd: vm stop Ghost 
-Oct 27 18:17:56.487 VM: VM Ghost shutdown.
-Oct 27 18:17:56.488 HYPERVISOR: exec_cmd: vm clean_delete Ghost 
-Oct 27 18:17:56.488 VM: VM Ghost destroyed.
-Oct 27 18:17:56.488 HYPERVISOR: exec_cmd: vm set_ghost_status Aveiro 2 
-Oct 27 18:17:56.489 HYPERVISOR: exec_cmd: vm set_ghost_file Aveiro c7200-adventerprisek9-mz.151-4.M2.image-512.ghost 
-Oct 27 18:17:57.322 HYPERVISOR: exec_cmd: nio create_udp udp-e475887f-9587-4fcd-b2f6-5a73e4fd6897 10012 127.0.0.1 10013 
-Oct 27 18:17:57.322 HYPERVISOR: exec_cmd: vm slot_add_nio_binding Aveiro 0 0 udp-e475887f-9587-4fcd-b2f6-5a73e4fd6897 
-Oct 27 18:17:57.322 HYPERVISOR: exec_cmd: vm get_status Aveiro 
-Oct 27 18:17:57.372 HYPERVISOR: exec_cmd: nio create_udp udp-c6f11063-c7ea-4f49-b39a-42db3145edb5 10014 127.0.0.1 10015 
-Oct 27 18:17:57.375 HYPERVISOR: exec_cmd: vm slot_add_nio_binding Aveiro 0 1 udp-c6f11063-c7ea-4f49-b39a-42db3145edb5 
-Oct 27 18:17:57.375 HYPERVISOR: exec_cmd: vm get_status Aveiro 
-Oct 27 18:17:57.649 HYPERVISOR: exec_cmd: nio create_udp udp-e51189e2-fe04-478b-b81d-ced62bcccfa4 10031 127.0.0.1 10030 
-Oct 27 18:17:57.649 HYPERVISOR: exec_cmd: vm slot_add_nio_binding Aveiro 1 0 udp-e51189e2-fe04-478b-b81d-ced62bcccfa4 
-Oct 27 18:17:57.652 HYPERVISOR: exec_cmd: vm get_status Aveiro 
-Oct 27 18:17:59.628 HYPERVISOR: exec_cmd: vm get_status Aveiro 
-Oct 27 18:17:59.629 HYPERVISOR: exec_cmd: vm start Aveiro 
-Oct 27 19:33:14.339 HYPERVISOR: exec_cmd: vm extract_config Aveiro 
-Oct 27 19:33:26.163 HYPERVISOR: exec_cmd: vm extract_config Aveiro 
-Oct 27 19:33:29.037 HYPERVISOR: exec_cmd: vm get_status Aveiro 
-Oct 27 19:33:29.037 HYPERVISOR: exec_cmd: vm stop Aveiro 
-Oct 27 19:33:29.178 VM: VM Aveiro shutdown.
-Oct 27 19:33:29.179 HYPERVISOR: exec_cmd: vm extract_config Aveiro 
-Oct 27 19:33:29.179 HYPERVISOR: exec_cmd: vm delete Aveiro 
-Oct 27 19:33:29.180 VM: VM Aveiro destroyed.
-Oct 27 19:33:29.180 HYPERVISOR: exec_cmd: hypervisor stop 
-Oct 27 19:33:29.203 HYPERVISOR: Stopped.
-Oct 27 19:33:29.203 GENERAL: reset done.
+Dec 30 15:35:57.880 HYPERVISOR: Release 0.2.14-amd64/Linux (tag 2014092320)
+Dec 30 15:35:57.880 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 48216.
+Dec 30 15:35:57.892 HYPERVISOR: exec_cmd: hypervisor version 
+Dec 30 15:35:57.892 HYPERVISOR: exec_cmd: hypervisor uuid 
+Dec 30 15:35:57.892 HYPERVISOR: exec_cmd: hypervisor working_dir /home/diogosilva/Documents/isp-network-sim_gns3/project_ara/project-files/dynamips 
+Dec 30 15:35:57.892 GENERAL: working_dir=/home/diogosilva/Documents/isp-network-sim_gns3/project_ara/project-files/dynamips
+Dec 30 15:35:57.892 HYPERVISOR: exec_cmd: vm create Aveiro 6 c7200 
+Dec 30 15:35:57.892 VM: VM Aveiro created.
+Dec 30 15:35:57.893 HYPERVISOR: exec_cmd: vm set_con_tcp_port Aveiro 2006 
+Dec 30 15:35:57.893 HYPERVISOR: exec_cmd: c7200 get_mac_addr Aveiro 
+Dec 30 15:35:57.893 HYPERVISOR: exec_cmd: vm get_status Aveiro 
+Dec 30 15:35:57.893 HYPERVISOR: exec_cmd: vm slot_add_binding Aveiro 0 0 C7200-IO-FE 
+Dec 30 15:35:57.893 HYPERVISOR: exec_cmd: vm get_status Aveiro 
+Dec 30 15:35:57.894 HYPERVISOR: exec_cmd: vm slot_remove_binding Aveiro 0 0 
+Dec 30 15:35:57.894 HYPERVISOR: exec_cmd: vm get_status Aveiro 
+Dec 30 15:35:57.894 HYPERVISOR: exec_cmd: vm slot_add_binding Aveiro 0 0 C7200-IO-2FE 
+Dec 30 15:35:57.894 HYPERVISOR: exec_cmd: c7200 set_mac_addr Aveiro ca06.18e6.0000 
+Dec 30 15:35:57.894 HYPERVISOR: exec_cmd: vm get_status Aveiro 
+Dec 30 15:35:57.895 HYPERVISOR: exec_cmd: vm set_idle_pc Aveiro 0x60608040 
+Dec 30 15:35:57.895 HYPERVISOR: exec_cmd: vm set_disk0 Aveiro 0 
+Dec 30 15:35:57.895 HYPERVISOR: exec_cmd: vm set_nvram Aveiro 512 
+Dec 30 15:35:57.896 HYPERVISOR: exec_cmd: vm set_ios Aveiro /media/universidade/CompTelematica/4thYear/ARA_ArquitecturaRedesAvancada/Pratica/OS_Images/IOS/c7200-adventerprisek9-mz.151-4.M2.image 
+Dec 30 15:35:57.896 HYPERVISOR: exec_cmd: vm get_status Aveiro 
+Dec 30 15:35:57.896 HYPERVISOR: exec_cmd: vm slot_add_binding Aveiro 1 0 PA-2FE-TX 
+Dec 30 15:35:57.896 HYPERVISOR: exec_cmd: vm set_ram Aveiro 512 
+Dec 30 15:35:57.897 HYPERVISOR: exec_cmd: vm set_config Aveiro configs/i6_startup-config.cfg 
+Dec 30 15:36:01.150 HYPERVISOR: exec_cmd: vm set_ghost_status Aveiro 2 
+Dec 30 15:36:01.158 HYPERVISOR: exec_cmd: vm set_ghost_file Aveiro c7200-adventerprisek9-mz.151-4.M2.image-512.ghost 
+Dec 30 15:36:02.070 HYPERVISOR: exec_cmd: nio create_udp udp-f8841221-c152-4d64-8e48-920882468197 10012 127.0.0.1 10013 
+Dec 30 15:36:02.076 HYPERVISOR: exec_cmd: vm slot_add_nio_binding Aveiro 0 0 udp-f8841221-c152-4d64-8e48-920882468197 
+Dec 30 15:36:02.081 HYPERVISOR: exec_cmd: vm get_status Aveiro 
+Dec 30 15:36:02.115 HYPERVISOR: exec_cmd: nio create_udp udp-a885e02f-e4cc-4e2d-80ac-95d0712eb045 10018 127.0.0.1 10020 
+Dec 30 15:36:02.116 HYPERVISOR: exec_cmd: vm slot_add_nio_binding Aveiro 0 1 udp-a885e02f-e4cc-4e2d-80ac-95d0712eb045 
+Dec 30 15:36:02.116 HYPERVISOR: exec_cmd: vm get_status Aveiro 
+Dec 30 15:36:02.284 HYPERVISOR: exec_cmd: nio create_udp udp-c2ce9ef9-c9ea-4515-835a-1244574e0782 10026 127.0.0.1 10024 
+Dec 30 15:36:02.290 HYPERVISOR: exec_cmd: vm slot_add_nio_binding Aveiro 1 0 udp-c2ce9ef9-c9ea-4515-835a-1244574e0782 
+Dec 30 15:36:02.296 HYPERVISOR: exec_cmd: vm get_status Aveiro 
+Dec 30 15:38:36.812 HYPERVISOR: exec_cmd: vm get_status Aveiro 
+Dec 30 15:38:36.816 HYPERVISOR: exec_cmd: vm start Aveiro 
+Dec 30 15:39:16.560 HYPERVISOR: exec_cmd: vm get_status Aveiro 
+Dec 30 15:39:16.584 HYPERVISOR: exec_cmd: vm set_idle_pc_online Aveiro 0 0x632f1ae8 
+Dec 30 15:40:02.306 HYPERVISOR: exec_cmd: vm get_status Aveiro 
+Dec 30 15:40:02.331 HYPERVISOR: exec_cmd: vm set_idle_pc_online Aveiro 0 0x63858e78 
+Dec 30 15:40:26.081 HYPERVISOR: exec_cmd: vm get_status Aveiro 
+Dec 30 15:40:26.119 HYPERVISOR: exec_cmd: vm stop Aveiro 
+Dec 30 15:40:26.389 VM: VM Aveiro shutdown.
+Dec 30 15:46:09.884 HYPERVISOR: exec_cmd: vm extract_config Aveiro 
+Dec 30 15:46:11.956 HYPERVISOR: exec_cmd: vm get_status Aveiro 
+Dec 30 15:46:11.957 HYPERVISOR: exec_cmd: vm extract_config Aveiro 
+Dec 30 15:46:11.963 HYPERVISOR: exec_cmd: vm delete Aveiro 
+Dec 30 15:46:11.963 VM: VM Aveiro destroyed.
+Dec 30 15:46:11.966 HYPERVISOR: exec_cmd: hypervisor stop 
+Dec 30 15:46:12.024 HYPERVISOR: Stopped.
+Dec 30 15:46:12.024 GENERAL: reset done.

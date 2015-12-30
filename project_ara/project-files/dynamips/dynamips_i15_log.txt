@@ -1,14 +1,14 @@
-Oct 27 18:17:56.632 HYPERVISOR: Release 0.2.15-amd64/Linux (tag 2015060118)
-Oct 27 18:17:56.632 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 44070.
-Oct 27 18:17:56.642 HYPERVISOR: exec_cmd: hypervisor version 
-Oct 27 18:17:56.643 HYPERVISOR: exec_cmd: hypervisor uuid 
-Oct 27 18:17:56.645 HYPERVISOR: exec_cmd: hypervisor working_dir /home/ed1000/Google Drive/Universidade - Cadeiras/Arquitetura de Redes Avançadas/Projecto/project_ara/project-files/dynamips 
-Oct 27 18:17:56.645 GENERAL: working_dir=/home/ed1000/Google Drive/Universidade - Cadeiras/Arquitetura de Redes Avançadas/Projecto/project_ara/project-files/dynamips
-Oct 27 18:17:56.646 HYPERVISOR: exec_cmd: ethsw create netA1 
-Oct 27 18:17:57.556 HYPERVISOR: exec_cmd: nio create_udp udp-f0bbedcd-31d2-42d0-9bcd-bfa288216118 10025 127.0.0.1 10024 
-Oct 27 18:17:57.560 HYPERVISOR: exec_cmd: ethsw add_nio netA1 udp-f0bbedcd-31d2-42d0-9bcd-bfa288216118 
-Oct 27 18:17:57.574 HYPERVISOR: exec_cmd: ethsw set_access_port netA1 udp-f0bbedcd-31d2-42d0-9bcd-bfa288216118 1 
-Oct 27 19:33:28.603 HYPERVISOR: exec_cmd: ethsw delete netA1 
-Oct 27 19:33:28.618 HYPERVISOR: exec_cmd: hypervisor stop 
-Oct 27 19:33:29.023 HYPERVISOR: Stopped.
-Oct 27 19:33:29.023 GENERAL: reset done.
+Dec 30 15:36:01.274 HYPERVISOR: Release 0.2.14-amd64/Linux (tag 2014092320)
+Dec 30 15:36:01.274 HYPERVISOR: Started on IP = 127.0.0.1, TCP port = 51065.
+Dec 30 15:36:01.304 HYPERVISOR: exec_cmd: hypervisor version 
+Dec 30 15:36:01.304 HYPERVISOR: exec_cmd: hypervisor uuid 
+Dec 30 15:36:01.305 HYPERVISOR: exec_cmd: hypervisor working_dir /home/diogosilva/Documents/isp-network-sim_gns3/project_ara/project-files/dynamips 
+Dec 30 15:36:01.305 GENERAL: working_dir=/home/diogosilva/Documents/isp-network-sim_gns3/project_ara/project-files/dynamips
+Dec 30 15:36:01.305 HYPERVISOR: exec_cmd: ethsw create netB 
+Dec 30 15:36:02.381 HYPERVISOR: exec_cmd: nio create_udp udp-8c766d3e-f529-4749-a6ed-14b007565149 10031 127.0.0.1 10030 
+Dec 30 15:36:02.387 HYPERVISOR: exec_cmd: ethsw add_nio netB udp-8c766d3e-f529-4749-a6ed-14b007565149 
+Dec 30 15:36:02.399 HYPERVISOR: exec_cmd: ethsw set_access_port netB udp-8c766d3e-f529-4749-a6ed-14b007565149 1 
+Dec 30 15:46:11.448 HYPERVISOR: exec_cmd: ethsw delete netB 
+Dec 30 15:46:11.456 HYPERVISOR: exec_cmd: hypervisor stop 
+Dec 30 15:46:11.921 HYPERVISOR: Stopped.
+Dec 30 15:46:11.921 GENERAL: reset done.
