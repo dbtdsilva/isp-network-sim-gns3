@@ -95,7 +95,7 @@ Neste projecto todas as restrições de routing apresentadas a seguir foram efec
 
 Se a rota pertence à internet incrementa-se a preferência local (podia-se ter usado 0.0.0.0 para representar qualquer outra rede externa, ou seja, internet). No trecho de código seguinte podemos ver que se o ip da internet se verificar, coloca uma preferência local acima da default, caso não seja, anuncia a rota como veio.
 
-\begin{lstlisting}
+\begin{lstlisting}[caption=Route-map para a Internet]
 access-list 5 permit 8.8.8.0 0.0.0.255
 
 route-map INTERNET_LP permit 10
@@ -105,9 +105,9 @@ route-map INTERNET_LP permit 10
 route-map INTERNET_LP permit 20
 \end{lstlisting}
 
-Como se pretende dar mais preferência à ligação entre Sintra e Lisboa quando o tráfico vai para a internet, aplica-se o route-map a todas as rotas anunciadas por Sintra a Lisboa, sendo que se alguma dessas rotas anunciadas por Sintra pertencer a internet, a preferência local será aumentada.
+Como se pretende dar mais preferência à ligação entre Sintra e Lisboa quando o tráfico vai para a internet, aplica-se o route-map a todas as rotas anunciadas por Sintra a Lisboa, sendo que se alguma dessas rotas anunciadas por Sintra pertencer a internet, a preferência local será aumentada.\\
 
-\begin{lstlisting}
+\begin{lstlisting}[caption=Route-map da Internet no Neighbor Sintra no Router de Lisboa]
 router bgp 9.345
  address-family ipv4
   ...
@@ -120,6 +120,7 @@ router bgp 9.345
 \newline
 
 Definiu-se a seguinte route-map em Aveiro e Faro, tendo em conta que ambos querem aumentar a preferência para a route-map na netL1 e netL2, a única diferença é por onde querer ir (só muda onde é aplicada a route-map), então definiu-se a mesma para os dois.
+
 \begin{lstlisting}[caption=Route-map para a netL1 e netL2]
 access-list 10 permit 82.84.100.0 0.0.0.255
 access-list 10 permit 82.84.200.0 0.0.0.255
@@ -135,12 +136,11 @@ Depois de definida a route-map, aplicou-se a rota ao neighbor respectivo.
 Se Aveiro receber uma rota anunciada pelo Porto que cumpra a route-map, aumenta-lhe a perferência. Em Faro caso receba uma rota anunciada por Lisboa que cumpra a route-map, aumenta-lhe a preferência local.
 
 Isso fez-se através do seguinte código.\\
-Router Aveiro - BGP
-\begin{lstlisting}
+\begin{lstlisting}[caption=Route-map LNET\_LP no Neighbor Porto no Router de Aveiro]
   neighbor 192.172.100.1 route-map LNET_LP in
 \end{lstlisting}
-Router Lisboa - BGP
-\begin{lstlisting}
+
+\begin{lstlisting}[caption=Route-map LNET\_LP no Neighbor Lisboa no Router de Faro]
   neighbor 192.172.100.2 route-map LNET_LP in
 \end{lstlisting}
 
@@ -149,11 +149,42 @@ Router Lisboa - BGP
 ``IP traffic for remote SIP proxy 2 (to network netS1) should be routed only via Lisboa using the direct peering link to ISP S.''
 \newline
 
-asd
+Para fazer com que Lisboa -> Sintra fosse o único peering possível do ISP X para a NetS1, optou-se pela estratégia oposta, negar todas as saídas possíveis, ou seja, tudo o que anunciar a NetS1 e que não seja aquele link não é aceite. Sendo definida a seguinte rota:\\
+
+\begin{lstlisting}[caption=Route-map SIP\_ROUTE para cancelar rotas]
+access-list 6 permit 200.1.100.0 0.0.0.255
+
+route-map SIP_ROUTE deny 11
+ match ip address 6
+route-map SIP_ROUTE permit 21
+\end{lstlisting}
+
+Sendo que foi preciso definir nos neighbors as rotas, neste caso, em Lisboa e Porto, rotas para a NetS1 recebidas pelo link de London.\\
+
+\begin{lstlisting}[caption=Cancelar rota para NetS1 recebida em Lisboa por London]
+neighbor 4.20.20.5 route-map SIP_ROUTE in
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Cancelar rota para NetS1 recebida no Porto por London]
+neighbor 4.20.20.1 route-map SIP_ROUTE in
+\end{lstlisting}
 
 \subsection{Non-Transit ISP-X}
 
+Para efectuar o Non-Transit foi preciso definir uma verificação no as-path, se o AS-PATH for vazio, ou contiver apenas o AS 65000 (privado) significa que é uma rota interna e pode ser anunciada para que os outros saibam que aquele neighbor pode ser usado para chegar a rede anunciada, sendo que redes que contenham outros AS-PATH (Sistemas autonomos externos não serão anunciados para fora).\\
 
+Teve-se de verificar para o AS 65000 porque ele atravessa pelo AS 9.345 para sair para London ou Sintra, e o rm-private-as é apenas retirado depois da validação das route-maps definidas no neighbor.\\
+
+Sendo que se usou a seguinte route-map em todas as saídas possíveis do AS 9.345:
+
+\begin{lstlisting}[caption=Tornar ISP X num AS Non-Transit]
+ip as-path access-list 4 permit ^$
+ip as-path access-list 4 permit ^65000$
+route-map NON_TRANSIT permit 10
+ match as-path 4
+\end{lstlisting}
+
+Sendo depois aplica-se esta route-map em Lisboa e no Porto em todos os neighbors ao anunciar rotas para fora (neighbor VIZINHO route-map NON\_TRANSIT out)
 
 \section{Changes for IPv6}
 \#EDUARDO
@@ -170,6 +201,8 @@ asd
 \section{PTSN Calls Support}
 \section{Forward to SIP Proxy 2}
 
+
+\lstlistoflistings
 \bibliographystyle{plain}
 \bibliography{proj2}
 
