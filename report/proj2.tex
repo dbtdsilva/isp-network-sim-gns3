@@ -140,6 +140,16 @@ Isso fez-se através do seguinte código.\\
   neighbor 192.172.100.2 route-map LNET_LP in
 \end{lstlisting}
 
+\subsubsection{BGP IP Route - Faro e Aveiro para a rede 82.84.X.0}
+
+Na imagem seguinte pode-se verificar que Aveiro tem uma preferencia local de 210 para a rede 82.84.100.0 e 82.84.100.0 por 192.172.100.1 (Porto) e Faro tem uma preferencia local de 210 por 192.172.100.2 (Lisboa), tal como previsto.
+
+\begin{figure}[H]
+\centerline{\includegraphics[width=300pt]{Selection_001.png}}
+\caption{BGP IP Route - Faro e Aveiro (Local Preferences para a rede 82.84.x.0)}
+\label{schema}
+\end{figure}
+
 \subsection{SIP Proxy 2 Traffic}
 
 ``IP traffic for remote SIP proxy 2 (to network netS1) should be routed only via Lisboa using the direct peering link to ISP S.''
@@ -277,8 +287,90 @@ route-map SIP_PORT permit 11
 
 Em Faro foi feito uma configuração similar a de Aveiro, sendo isto o necessário para ter ambos os túneis a funcionar correctamente e em simultâneo.
 
+\subsection{Validação do Túnel}
+
+A validação deste túnel não pode ser feita através de GNS3 (pelo menos totalmente) porque não se via nenhum label MPLS o que está correcto, Lisboa é o penultimo router do Tunnel para Aveiro, logo é suposto ser o último pop do label.\\
+
+Para confirmar que de facto estava a entrar dentro do tunnel usou o comando: show interfaces Tunnel 1\\
+
+E verificou-se o estado do Túnel como também o número de pacotes que tinham lá passado, após verificar o número de pacotes efectuou-se um ping com um VPCS (são os unicos que permitem pings usando UDP e o porto) no porto 5060 em UDP e verificou-se que ao efectuar show interfaces Tunnel 1 novamente, o número de pacotes que tinha atravessado o túnel tinha sido 5.\\
+
+A imagem seguinte mostra a validação efectuada, sendo 93 o número de pacotes inicial e 98 após o envio de pacotes UDP para a network da empresa A.\\
+
+\begin{figure}[H]
+\centerline{\includegraphics[width=300pt]{tunnel_mpls.png}}
+\caption{MPLS Tunnel - Teste de VPCS em Lisboa para interface da EmpA1 (Pacote UDP)}
+\label{schema}
+\end{figure}
+
 \section{MPLS VPN}
 
+\subsection{Internal Connectivity}
+Para configurar a VPN é preciso criar uma VRF que é o que vai permitir ter um encaminhamento especifico para a network da empresa A, neste caso vai ter um routing table específica para a rede da empresa A, sendo esse o panel da VRF (Routing e Forwarding).\\
+
+Para além disso cada VRF tem de ter um identificador que a permite destinguir de outras VRF existentes (neste caso só existe a da empresa A), e é preciso indicar que todas as rotas desta VRF serão exportadas por VRF com o mesmo identificador e também irá importar rotas de VRFs com o mesmo identificador. Sendo assim definida a seguinte VRF:\\
+
+\begin{lstlisting}[caption=VPN - Criar uma VRF e associar um router distinguisher]
+ip vrf VPN-ClientA
+ rd 9345:1
+ route-target export 9345:1
+ route-target import 9345:1
+\end{lstlisting}
+
+Depois de definir a VRF é preciso indicar a interface a qual a VRF estará associada, neste caso será na interface FastEthernet0/0 em Aveiro e FastEthernet0/0 em Faro sendo a outra ponta.
+
+\begin{lstlisting}[caption=VPN - Associar a VRF a uma interface]
+interface FastEthernet0/0
+ ip vrf forwarding VPN-ClientA
+\end{lstlisting}
+
+
+Para além disso é preciso identificar aos Provider Edge (PE), neste caso, Aveiro e Faro, quais são os pacotes que pertencem as VPNs, para isso efectua-se o seguinte comando.\\
+
+\begin{lstlisting}[caption=VPN - Anunciar os labels das VPNs]
+router bgp 9.345
+ address-family vpnv4
+  neighbor 192.172.100.4 activate
+  neighbor 192.172.100.4 send-community both
+ address-family ipv4 vrf VPN-ClientA
+  redistribute connected
+\end{lstlisting}
+
+Após efectuar este pequeno comando reparou-se que apenas se tinha ligação entre a rede directamente ligada a Aveiro e a rede directamente ligada a Faro, com a VPN a funcionar apesar de tudo. Isto deve-se a VRF estar completamente vazia apenas com as directamente ligadas!\\
+
+O que se fez para resolver este problema e ter conectividade não só com a rede directamente ligada a Aveiro mas também com a rede da Empresa A1 e da Empresa A2 foi activar um processo OSPF na VRF como mostra a imagem seguinte rodeado com circulos pretos:\\
+
+\begin{figure}[H]
+\centerline{\includegraphics[width=300pt]{network_vpn.png}}
+\caption{MPLS VPN entre Aveiro e Faro (empresas A1 e A2)}
+\label{schema}
+\end{figure}
+
+Para activar o OSPF na VRF foi preciso executar os seguintes comandos:\\
+
+\begin{lstlisting}[caption=VPN - Suporte de OSPF entre o PE e o CE]
+router ospf 200 vrf VPN-ClientA
+ network 10.1.0.0 0.0.255.255 area 0
+\end{lstlisting}
+
+Depois de activar OSPF na VRF do router de Aveiro, Faro, EmpA1 e EmpA2 passou-se a ter total conectividade dentro da VPN.
+
+\subsection{External Connectivity}
+
+Para obter conectividade externa é preciso indicar a rede da VPN como sair para fora da rede interna, neste caso faz-se com uma rota estática (que é distribuida pelo OSPF da VRF) definida na VRF indicando a interface de saída.\\
+
+\begin{lstlisting}[caption=VPN - Rota de saída da VPN-ClientA]
+ip route vrf VPN-ClientA 0.0.0.0 0.0.0.0 192.172.100.1 global
+\end{lstlisting}
+
+E é preciso indicar às redes de fora (ou seja, a todo o iBGP e eBGP) quais são as redes que estão disponiveis dentro da VRF.\\
+
+\begin{lstlisting}[caption=VPN - Anunciar rotas disponiveis dentro da VPN do lado de Aveiro]
+ip route 10.1.1.0 255.255.255.128 FastEthernet0/0
+ip route 80.172.100.128 255.255.255.192 FastEthernet0/0
+\end{lstlisting}
+
+Sendo estas rotas distribuidas para o OSPF para funcionar na rede de interna, e para o BGP para funcionar externamente de igual forma, existindo assim tanto conectividade dentro da VPN como de fora para dentro e vice-versa.
 
 \chapter{VoIP SIP}
 
