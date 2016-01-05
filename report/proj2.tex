@@ -11,24 +11,18 @@
 \usepackage{listings}
 \usepackage{caption}
 \usepackage{subcaption}
+
 \usepackage{color}
  
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\graphicspath{ {images/} }
+
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
-\setlength\parindent{0pt} % Removes all indentation from paragraphs	 
-%% Acronimos
-%\newglossaryentry{sqlite}
-%{
-%  name=SQLite,
-%  description={é um sistema de gestão de base de dados}
-%}
-%\newacronym{aes}{AES}{Advanced Encryption Standard}
-%\newacronym{sha}{SHA}{Secure Hash Algorithm}
-%\makeglossaries
-%% Fim da introdução do Acronimos
+\setlength\parindent{0pt} 
 
 \let\olditemize\itemize
 \renewcommand{\itemize}{
@@ -76,6 +70,8 @@
 \lstset{style=mystyle}
 
 \chapter{Basic Mechanisms and BGP}
+
+\includegraphics[scale=0.3]{network}
 
 \section{Internal BGP \& OSPF Redistribution}
 \#EDUARDO
@@ -165,10 +161,146 @@ asd
 
 
 \chapter{VoIP SIP}
-\#EDUARDO
+
+Neste projeto foi pedido que existisse um serviço de SIP-VoIP para todos os clientes empresariais do ISP X. Esse serviço VoIP deve fornecer conetividade entre todos os clientes empresariais, bem como fornecer compatibilidade com chamadas oriundas de PTSN, encaminhadas pelo SIP Proxy 2. O serviço de VoIP deve também encaminhar as chamadas para redes externas utilizando o SIP Proxy 2.
+
 \section{Internal Extensions}
+
+A configuração dos clientes é a seguinte:
+
+\begin{lstlisting}[caption=SIP Proxy 1 - /etc/asterisk/sip.conf]
+[EmpA1]
+type=friend
+host=dynamic
+secret=labcom
+context=phones
+allow=all
+
+[EmpA2]
+type=friend
+host=dynamic
+secret=labcom
+context=phones
+allow=all
+
+[EmpB]
+type=friend
+host=dynamic
+secret=labcom
+context=phones
+allow=all
+\end{lstlisting}
+
+Apenas existe uma conta por empresa, para ser possível testar a conetividade entre elas. Na realidade poderiam existir muitas mais sem que existem problemas.\\
+
+De seguida configurou-se a extensões dos clientes, sendo elas:
+
+\begin{lstlisting}[caption=SIP Proxy 1 - /etc/asterisk/extensions.conf]
+[phones]
+exten => 1000,1,Answer(500)
+exten => 1000,2,PlayBack(demo-congrats)
+exten => 1000,3,PlayBack(vm-goodbye)
+exten => 1000,4,HangUp()
+
+exten => 2000,1,Dial(SIP/EmpA1)
+exten => 2000,2,voicemail(3000@corporations_voicemail)
+exten => 2000,3,PlayBack(vm-goodbye)
+exten => 2000,4,HangUp()
+
+exten => 2001,1,Dial(SIP/EmpA2)
+exten => 2001,2,voicemail(3001@corporations_voicemail)
+exten => 2001,3,PlayBack(vm-goodbye)
+exten => 2001,4,HangUp()
+
+exten => 2002,1,Dial(SIP/EmpB)
+exten => 2002,2,voicemail(3002@corporations_voicemail)
+exten => 2002,3,PlayBack(vm-goodbye)
+exten => 2002,4,HangUp()
+
+exten => 3000,1,voicemail(3000@corporations_voicemail)
+exten => 3001,1,voicemail(3001@corporations_voicemail)
+exten => 3002,1,voicemail(3002@corporations_voicemail)
+\end{lstlisting}
+
+A extensão 1000 serve para testar a conetividade com o servidor. 
+A extensão 2000 é a extensão do polo 1 da empresa A. 
+A extensão 2001 é a extensão do polo 2 da empresa A. 
+A extensão 2002 é a extensão da empresa B. 
+As extensões 3000, 3001 e 3002 dão acesso ao voicemail das empresas.
+Todas as extensões 2000, 2001 e 2002 caso estejam ocupadas vão parar ao voicemail.\\
+
+As configurações do voicemail são as seguintes:
+
+\begin{lstlisting}[caption=SIP Proxy 1 - /etc/asterisk/voicemail.conf]
+[corporations_voicemail]
+3000 => 1212,EmpA1
+3001 => 1212,EmpA2
+3002 => 1212,EmpB
+\end{lstlisting}
+
+
 \section{PTSN Calls Support}
+
+As chamadas provenientes da rede PTSN vão utilizar a seguinte configuração para serem reencaminhadas para as respetivas empresas.
+
+\begin{lstlisting}[caption=SIP Proxy 1 - /etc/asterisk/extensions.conf]
+[phones]
+...
+exten => _2341000XX,1,Dial(SIP/EmpA1)
+exten => _2341000XX,2,voicemail(3000@corporations_voicemail)
+exten => _2341000XX,3,PlayBack(vm-goodbye)
+exten => _2341000XX,4,HangUp()
+
+exten => _2891001XX,1,Dial(SIP/EmpA2)
+exten => _2891001XX,2,voicemail(3001@corporations_voicemail)
+exten => _2891001XX,3,PlayBack(vm-goodbye)
+exten => _2891001XX,4,HangUp()
+
+exten => _2341002XX,1,Dial(SIP/EmpB)
+exten => _2341002XX,2,voicemail(3002@corporations_voicemail)
+exten => _2341002XX,3,PlayBack(vm-goodbye)
+exten => _2341002XX,4,HangUp()
+\end{lstlisting}
+
+O underscore indica o inicio do padrão que queremos utilizar e o X indica números de 0 a 9. De resto a configuração é semelhante a anterior.
+
 \section{Forward to SIP Proxy 2}
+
+Para fazer reencaminhar as chamadas VoIP para redes externas é preciso alterar as configurações dos dois servidores SIP.
+
+\begin{lstlisting}[caption=SIP Proxy 1 - /etc/asterisk/sip.conf]
+...
+[Server2]
+type=peer
+host=200.1.100.2
+secret=labcom
+username=Server1
+\end{lstlisting}
+
+\begin{lstlisting}[caption=SIP Proxy 2 - /etc/asterisk/sip.conf]
+[Server1]
+type=peer
+host=192.172.100.130
+secret=labcom
+context=phones
+\end{lstlisting}
+
+\begin{lstlisting}[caption=SIP Proxy 1 - /etc/asterisk/extensions.conf]
+...
+exten => _X!,1,Dial(SIP/${EXTEN}@Server2,10)
+exten => _X!,2,HangUp()
+\end{lstlisting}
+
+\begin{lstlisting}[caption=SIP Proxy 2 - /etc/asterisk/extensions.conf]
+[phones]
+exten => _X!,1,Answer(500)
+exten => _X!,2,PlayBack(demo-congrats)
+exten => _X!,3,PlayBack(vm-goodbye)
+exten => _X!,4,HangUp()
+\end{lstlisting}
+
+No servidor 1 foi preciso criar um peer para permitir que o mesmo se consiga ligar ao servidor 2. Foi também preciso criar uma nova regra nas extensões do servidor 1 que reencaminhe todas as chamadas VoIP com destino em extensões externas para o servidor 2, assim sendo foi criado o padrão \_X!, onde o underscore indica o inicio do padrão, o X indica qualquer número e o ! todas as extensões não definidas anteriormente. Caso se encontre alguma chamada para uma extensão deste tipo, o servidor 1 deve fazer uma SIP URI dial para o servidor 2 para onde envia a extensão.\\
+No servidor 2 foi preciso criar um peer para indicar que o servidor 1 se vai ligar a ele. As extensões são idênticas às definidas anteriormente.
 
 \bibliographystyle{plain}
 \bibliography{proj2}
