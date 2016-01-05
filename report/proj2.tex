@@ -1,0 +1,84 @@
+\documentclass[11pt,a4paper]{report}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{glossaries}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{natbib}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{subcaption}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\setlength\parindent{0pt} % Removes all indentation from paragraphs	 
+%% Acronimos
+%\newglossaryentry{sqlite}
+%{
+%  name=SQLite,
+%  description={é um sistema de gestão de base de dados}
+%}
+%\newacronym{aes}{AES}{Advanced Encryption Standard}
+%\newacronym{sha}{SHA}{Secure Hash Algorithm}
+%\makeglossaries
+%% Fim da introdução do Acronimos
+
+\let\olditemize\itemize
+\renewcommand{\itemize}{
+  \olditemize
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}
+
+\title{\textbf{Internet Service Provider ARA Project} \\Arquitectura de Redes Avançada \\Universidade de Aveiro}
+\author{Diogo Silva 60337 \and Eduardo Sousa 68633 }
+
+\begin{document}
+\begin{titlepage}
+\begin{center}
+\HRule \\[0.4cm]
+{ \huge \bfseries Internet Service Provider ARA Project \\[0.4cm] }
+\HRule \\[1.5cm]
+\textsc{\LARGE Universidade de Aveiro}\\[1.5cm]
+\textsc{}\\[1.5cm]
+\textsc{Diogo Silva 60337 \\Eduardo 68633 }
+\end{center}
+\end{titlepage}
+\maketitle
+\tableofcontents
+
+\chapter{Basic Mechanisms and BGP}
+
+\section{Internal BGP \& OSPF Redistribution}
+\#EDUARDO
+\section{External BGP}
+\#EDUARDO
+\section{Private AS}
+\#EDUARDO
+
+\section{Routing Constraints}
+\#DIOGO
+\subsection{Internet Traffic}
+\subsection{Net L1 and Net L2 Preferences}
+\subsection{SIP Proxy 2 Traffic}
+\section{Changes for IPv6}
+\#EDUARDO
+
+\chapter{MPLS}
+\#DIOGO
+\section{MPLS Tunnel for SIP Traffic}
+\section{MPLS VPN}
+
+
+\chapter{VoIP SIP}
+\#EDUARDO
+\section{Internal Extensions}
+\section{PTSN Calls Support}
+\section{Forward to SIP Proxy 2}
+
+\bibliographystyle{plain}
+\bibliography{proj2}
+
+\end{document}
