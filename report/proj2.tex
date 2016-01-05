@@ -59,10 +59,40 @@
 \#EDUARDO
 
 \section{Routing Constraints}
-\#DIOGO
+
+Neste projecto todas as restrições de routing apresentadas a seguir foram efectuadas usando route-map para efectuar a respectiva regra, ou negar a rota, ou aumentar a local preference da rede anunciada no iBGP.
+
 \subsection{Internet Traffic}
+
+``IP traffic towards Internet should be preferably routed via ISP S (Lisboa).''
+\newline
+
+\begin{lstlisting}
+ip router bgp 9.345
+network yolo
+ test abc
+ asd aw 0400
+!
+
+\end{lstlisting}
+
 \subsection{Net L1 and Net L2 Preferences}
+
+``IP traffic towards netL1 and netL2, should be preferably routed via Porto from Aveiro, and via Lisboa from Faro.''
+
+asd
+
 \subsection{SIP Proxy 2 Traffic}
+
+``IP traffic for remote SIP proxy 2 (to network netS1) should be routed only via Lisboa using the direct peering link to ISP S.''
+\newline
+
+asd
+
+\subsection{Non-Transit ISP-X}
+
+
+
 \section{Changes for IPv6}
 \#EDUARDO
 
