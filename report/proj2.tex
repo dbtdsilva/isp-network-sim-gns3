@@ -186,8 +186,97 @@ Sendo depois aplica-se esta route-map em Lisboa e no Porto em todos os neighbors
 \#EDUARDO
 
 \chapter{MPLS}
-\#DIOGO
+
 \section{MPLS Tunnel for SIP Traffic}
+
+Para o SIP Traffic é importante a existência de Tuneis entre as empresas e o SIP Proxy, sendo que definiu-se que o Tunnel em Aveiro até Lisboa seria suficiente, porque as ligações de Aveiro a empA1 é uma ligação ponto-a-ponto e Aveiro é que pertence ao Core do ISP (também podemos verificar que o limite do iBGP só chega até Aveiro, a empA1 já não tem BGP), daí termos escolhido Aveiro como um dos extremos do túnel, o mesmo se verifica para Faro.\\
+
+\begin{figure}[H]
+\centerline{\includegraphics[width=300pt]{network_tunnel.png}}
+\caption{MPLS Tunnel entre SIP Proxy 1 e Aveiro (empA1 e EmpB) e o SIP Proxy e Faro (empA2)}
+\label{schema}
+\end{figure}
+
+
+Sendo assim criou-se dois túneis, um túnel (1) para fazer a transição do tráfico da Empresa A1 (ramo de Aveiro) e da Empresa B até ao SIP Proxy 1 e vice-versa. Depois criou-se outro túnel para o ramo da Empresa A em Faro (empA2) até ao SIP Proxy 1. Tal como mostra a imagem anterior.\\
+
+De forma a activar o MPLS com RSVP-TE sobre a rede entre Aveiro/Faro e Lisboa foi preciso activar na configuração OSPF de forma a ele se propagar (Loopbacks e OSPF já estavam definidos anteriormente, foi só activar o MPLS traffic engineering), usando o seguinte comando (em todas as interfaces físicas e na configuração geral do router, isto entre Aveiro/Faro e Lisboa):\\
+
+\begin{lstlisting}[caption=MPLS Tunnel - Activar MPLS TE no OSPF]
+ mpls traffic-eng area 0
+ mpls traffic-eng router-id Loopback 0
+\end{lstlisting}
+
+Para activar o RSVP ainda é preciso definir a largura de banda do RSVP, tendo em conta que ambos os túneis vão usar o mesmo RSVP e pretende-se 1Mbits em cada túnel MPLS, é preciso definir no mínimo 2Mbits na largura de banda RSVP para ter os dois túneis activos ao mesmo tempo, no entanto definiu-se 8Mbits para se ter uma pequena margem. Usando assim o seguinte comando nas interfaces fisicas.\\
+
+\begin{lstlisting}[caption=MPLS Tunnel - Activar RSVP]
+ip rsvp bandwidth 8096 8096
+\end{lstlisting}
+
+Para configurar o Túnel em Aveiro usou-se a seguinte sequência de comandos:\\
+\begin{lstlisting}[caption=MPLS Tunnel - Aveiro]
+interface Tunnel1
+ ip unnumbered Loopback0
+ tunnel mode mpls traffic-eng
+ tunnel destination 192.172.100.2
+ tunnel mpls traffic-eng bandwidth 1024
+ tunnel mpls traffic-eng path-option 1 dynamic
+\end{lstlisting}
+
+Sendo que em Lisboa foi definido um Túnel para Aveiro também com a respectiva interface de Loopback de Aveiro, o mesmo foi efectuado para Faro.\\
+
+Depois de ter definido todas as interfaces e activar correctamente o MPLS com RSVP, é preciso indicar como é que é possível entrar no túnel. Sendo que foi definido o seguinte código no router de Lisboa para permitir a entrada no túnel:\\
+
+\begin{lstlisting}[caption=MPLS Tunnel - Lisboa rota de entrada no túnel]
+interface FastEthernet1/1 	!interface do SIP Proxy 1
+ ip policy route-map SIP_PORT
+
+route-map SIP_PORT permit 12                 !Aveiro
+ match ip address VoIP-TRAFFIC 7             !SIP e ACL7
+ set interface Tunnel1              
+
+route-map SIP_PORT permit 13                 !Faro
+ match ip address VoIP-TRAFFIC 8             !SIP e ACL 8
+ set interface Tunnel2
+
+access-list 7 permit 10.1.1.0 0.0.0.127      !EmpA1
+access-list 7 permit 81.84.100.0 0.0.0.255   !EmpB
+access-list 8 permit 10.1.1.128 0.0.0.127    !EmpA2
+
+ip access-list extended VoIP-TRAFFIC
+ permit udp any any range 16384 32767
+ permit udp any range 16384 32767 any
+ permit udp any any eq 5060
+ permit tcp any any eq 5060
+ permit udp any eq 5060 any
+ permit tcp any eq 5060 any
+ permit udp any any eq 5061
+ permit tcp any any eq 5061
+ permit udp any eq 5061 any
+ permit tcp any eq 5061 any
+\end{lstlisting}
+
+Este route-map é aplicado na interface que está do lado do SIP Proxy 1, ou seja, só o tráfico que vem daquela interface com destino as redes das empresas e com um porto de tráfico VoIP é que consegue atravessar por dentro do túnel, caso contrário, consegue comunicar mas não por dentro do túnel (acabando por perder os seus benefícios).\\
+
+Do lado de Aveiro/Faro foi preciso fazer uma configuração similar para entrar no túnel, no entanto não se verificou o IP destino, desde que seja SIP entra pelo túnel:
+
+\begin{lstlisting}[caption=MPLS Tunnel - Aveiro rota de entrada no túnel]
+interface FastEthernet0/0                  !Empresa A1
+ ip vrf forwarding VPN-ClientA
+ ip address 10.1.100.1 255.255.255.252
+ ip policy route-map SIP_PORT
+
+interface FastEthernet0/1                  !Empresa B
+ ip address 10.1.100.9 255.255.255.252
+ ip policy route-map SIP_PORT
+
+route-map SIP_PORT permit 11
+ match ip address VoIP-TRAFFIC
+ set interface Tunnel1
+\end{lstlisting}
+
+Em Faro foi feito uma configuração similar a de Aveiro, sendo isto o necessário para ter ambos os túneis a funcionar correctamente e em simultâneo.
+
 \section{MPLS VPN}
 
 
