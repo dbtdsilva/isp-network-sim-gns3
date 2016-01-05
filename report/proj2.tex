@@ -11,6 +11,12 @@
 \usepackage{listings}
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{color}
+ 
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
 \setlength\parindent{0pt} % Removes all indentation from paragraphs	 
 %% Acronimos
@@ -49,6 +55,26 @@
 \maketitle
 \tableofcontents
 
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
 \chapter{Basic Mechanisms and BGP}
 
 \section{Internal BGP \& OSPF Redistribution}
@@ -67,20 +93,56 @@ Neste projecto todas as restrições de routing apresentadas a seguir foram efec
 ``IP traffic towards Internet should be preferably routed via ISP S (Lisboa).''
 \newline
 
-\begin{lstlisting}
-ip router bgp 9.345
-network yolo
- test abc
- asd aw 0400
-!
+Se a rota pertence à internet incrementa-se a preferência local (podia-se ter usado 0.0.0.0 para representar qualquer outra rede externa, ou seja, internet). No trecho de código seguinte podemos ver que se o ip da internet se verificar, coloca uma preferência local acima da default, caso não seja, anuncia a rota como veio.
 
+\begin{lstlisting}
+access-list 5 permit 8.8.8.0 0.0.0.255
+
+route-map INTERNET_LP permit 10
+ match ip address 5
+ set local-preference 200
+
+route-map INTERNET_LP permit 20
+\end{lstlisting}
+
+Como se pretende dar mais preferência à ligação entre Sintra e Lisboa quando o tráfico vai para a internet, aplica-se o route-map a todas as rotas anunciadas por Sintra a Lisboa, sendo que se alguma dessas rotas anunciadas por Sintra pertencer a internet, a preferência local será aumentada.
+
+\begin{lstlisting}
+router bgp 9.345
+ address-family ipv4
+  ...
+  neighbor 4.20.20.13 route-map INTERNET_LP in
 \end{lstlisting}
 
 \subsection{Net L1 and Net L2 Preferences}
 
 ``IP traffic towards netL1 and netL2, should be preferably routed via Porto from Aveiro, and via Lisboa from Faro.''
+\newline
 
-asd
+Definiu-se a seguinte route-map em Aveiro e Faro, tendo em conta que ambos querem aumentar a preferência para a route-map na netL1 e netL2, a única diferença é por onde querer ir (só muda onde é aplicada a route-map), então definiu-se a mesma para os dois.
+\begin{lstlisting}[caption=Route-map para a netL1 e netL2]
+access-list 10 permit 82.84.100.0 0.0.0.255
+access-list 10 permit 82.84.200.0 0.0.0.255
+
+route-map LNET_LP permit 25
+ match ip address 10
+ set local-preference 210
+route-map LNET_LP permit 30
+\end{lstlisting}
+
+Depois de definida a route-map, aplicou-se a rota ao neighbor respectivo.
+
+Se Aveiro receber uma rota anunciada pelo Porto que cumpra a route-map, aumenta-lhe a perferência. Em Faro caso receba uma rota anunciada por Lisboa que cumpra a route-map, aumenta-lhe a preferência local.
+
+Isso fez-se através do seguinte código.\\
+Router Aveiro - BGP
+\begin{lstlisting}
+  neighbor 192.172.100.1 route-map LNET_LP in
+\end{lstlisting}
+Router Lisboa - BGP
+\begin{lstlisting}
+  neighbor 192.172.100.2 route-map LNET_LP in
+\end{lstlisting}
 
 \subsection{SIP Proxy 2 Traffic}
 
