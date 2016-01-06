@@ -203,13 +203,13 @@ Para além disso também se usou ``next-hop-self'' quando se tinha uma relação
 Pode ser verificado nas imagens seguintes o funcionamento de Internal BGP.
 
 \begin{figure}[H]
-\centerline{\includegraphics[width=300pt]{lisboa_bgp_ipv4.png}}
+\centerline{\includegraphics[width=260pt]{lisboa_bgp_ipv4.png}}
 \caption{Tabelas de redes aprendidas por BGP e OSPF em IPv4}
 \label{schema}
 \end{figure}
 
 \begin{figure}[H]
-\centerline{\includegraphics[width=300pt]{lisboa_bgp_ipv6.png}}
+\centerline{\includegraphics[width=260pt]{lisboa_bgp_ipv6.png}}
 \caption{Tabelas de redes aprendidas por BGP e OSPF em IPv6}
 \label{schema}
 \end{figure}
@@ -273,13 +273,13 @@ router bgp 9.345
 Estas configurações removem o AS privado do caminho anunciado por BGP pelos routers do Porto e Lisboa, como se pode verificar nas imagens seguintes.
 
 \begin{figure}[H]
-\centerline{\includegraphics[width=300pt]{private_as_removal_ipv4.png}}
+\centerline{\includegraphics[width=340pt]{private_as_removal_ipv4.png}}
 \caption{Remoção do AS privado em IPv4}
 \label{schema}
 \end{figure}
 
 \begin{figure}[H]
-\centerline{\includegraphics[width=300pt]{private_as_removal_ipv6.png}}
+\centerline{\includegraphics[width=340pt]{private_as_removal_ipv6.png}}
 \caption{Remoção do AS privado em IPv6}
 \label{schema}
 \end{figure}
@@ -350,7 +350,7 @@ Isso fez-se através do seguinte código.\\
 Na imagem seguinte pode-se verificar que Aveiro tem uma preferencia local de 210 para a rede 82.84.100.0 e 82.84.100.0 por 192.172.100.1 (Porto) e Faro tem uma preferencia local de 210 por 192.172.100.2 (Lisboa), tal como previsto.
 
 \begin{figure}[H]
-\centerline{\includegraphics[width=300pt]{Selection_001.png}}
+\centerline{\includegraphics[width=280pt]{Selection_001.png}}
 \caption{BGP IP Route - Faro e Aveiro (Local Preferences para a rede 82.84.x.0)}
 \label{schema}
 \end{figure}
