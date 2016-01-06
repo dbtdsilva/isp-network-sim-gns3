@@ -71,14 +71,215 @@
 
 \chapter{Basic Mechanisms and BGP}
 
-\includegraphics[scale=0.3]{network}
+\begin{figure}[H]
+\centerline{\includegraphics[scale=0.5]{network.png}}
+\caption{Visão geral da rede}
+\label{schema}
+\end{figure}
 
 \section{Internal BGP \& OSPF Redistribution}
-\#EDUARDO
+Neste projeto foi necessário utilizar Internal BGP para ligar os routers do ethernet core do ISP X e o AS privado 65000 pertencente à empresa B. Isto permitiu que as redes públicas fossem anunciadas diretamente por BGP pela rede do ISP X e do AS privado 65000.\\
+Foi necessário também utilizar OSPF para as redes internas, que foi redistribuido para o Internal BGP.\\
+Os routers foram configurados da seguinte maneira:
+
+\begin{lstlisting}[caption=Internal BGP - Router Porto]
+router bgp 9.345
+  address-family ipv4 unicast
+  	network 192.172.100.0 mask 255.255.255.128
+    neighbor 192.172.100.2 remote-as 590169
+	neighbor 192.172.100.2 update-source Loopback0
+ 	neighbor 192.172.100.2 next-hop-self
+ 	neighbor 192.172.100.3 remote-as 590169
+ 	neighbor 192.172.100.3 update-source Loopback0
+ 	neighbor 192.172.100.3 next-hop-self
+ 	neighbor 192.172.100.4 remote-as 590169
+ 	neighbor 192.172.100.4 update-source Loopback0
+  	neighbor 192.172.100.4 next-hop-self
+  address-family ipv6 unicast
+  	network 2001:192:100::/48
+  	neighbor 2001:192:100::2 remote-as 590169
+ 	neighbor 2001:192:100::2 update-source Loopback0
+ 	neighbor 2001:192:100::2 next-hop-self
+ 	neighbor 2001:192:100::3 remote-as 590169
+ 	neighbor 2001:192:100::3 update-source Loopback0
+ 	neighbor 2001:192:100::3 next-hop-self
+ 	neighbor 2001:192:100::4 remote-as 590169
+ 	neighbor 2001:192:100::4 update-source Loopback0
+ 	neighbor 2001:192:100::4 next-hop-self
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Internal BGP - Router Lisboa]
+router bgp 9.345
+  address-family ipv4 unicast
+  	network 192.172.100.0 mask 255.255.255.128
+  	network 192.172.100.128 mask 255.255.255.128
+    neighbor 192.172.100.1 remote-as 590169
+	neighbor 192.172.100.1 update-source Loopback0
+ 	neighbor 192.172.100.1 next-hop-self
+ 	neighbor 192.172.100.3 remote-as 590169
+ 	neighbor 192.172.100.3 update-source Loopback0
+ 	neighbor 192.172.100.3 next-hop-self
+ 	neighbor 192.172.100.4 remote-as 590169
+ 	neighbor 192.172.100.4 update-source Loopback0
+  	neighbor 192.172.100.4 next-hop-self
+  address-family ipv6 unicast
+  	network 2001:192:100::/48
+  	network 2001:192:101::/48
+  	neighbor 2001:192:100::1 remote-as 590169
+ 	neighbor 2001:192:100::1 update-source Loopback0
+ 	neighbor 2001:192:100::1 next-hop-self
+ 	neighbor 2001:192:100::3 remote-as 590169
+ 	neighbor 2001:192:100::3 update-source Loopback0
+ 	neighbor 2001:192:100::3 next-hop-self
+ 	neighbor 2001:192:100::4 remote-as 590169
+ 	neighbor 2001:192:100::4 update-source Loopback0
+ 	neighbor 2001:192:100::4 next-hop-self
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Internal BGP  \& OSPF Redistribute - Router Aveiro]
+router bgp 9.345
+  address-family ipv4 unicast
+  	network 192.172.100.0 mask 255.255.255.128
+  	redistribute static route-map rm-priv-default4
+  	redistribute ospf 100 route-map rm-priv-default4
+  	neighbor 10.1.100.10 remote-as 65000
+    neighbor 192.172.100.1 remote-as 590169
+	neighbor 192.172.100.1 update-source Loopback0
+ 	neighbor 192.172.100.1 next-hop-self
+ 	neighbor 192.172.100.2 remote-as 590169
+ 	neighbor 192.172.100.2 update-source Loopback0
+ 	neighbor 192.172.100.2 next-hop-self
+ 	neighbor 192.172.100.4 remote-as 590169
+ 	neighbor 192.172.100.4 update-source Loopback0
+  	neighbor 192.172.100.4 next-hop-self
+  address-family ipv6 unicast
+  	network 2001:192:100::/48
+  	redistribute ospf 200
+  	neighbor 2001:192:100::B remote-as 65000
+  	neighbor 2001:192:100::1 remote-as 590169
+ 	neighbor 2001:192:100::1 update-source Loopback0
+ 	neighbor 2001:192:100::1 next-hop-self
+ 	neighbor 2001:192:100::2 remote-as 590169
+ 	neighbor 2001:192:100::2 update-source Loopback0
+ 	neighbor 2001:192:100::2 next-hop-self
+ 	neighbor 2001:192:100::4 remote-as 590169
+ 	neighbor 2001:192:100::4 update-source Loopback0
+ 	neighbor 2001:192:100::4 next-hop-self
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Internal BGP  \& OSPF Redistribute - Router Faro]
+router bgp 9.345
+  address-family ipv4 unicast
+  	network 192.172.100.0 mask 255.255.255.128
+  	redistribute static route-map rm-priv-default4
+  	redistribute ospf 100 route-map rm-priv-default4
+    neighbor 192.172.100.1 remote-as 590169
+	neighbor 192.172.100.1 update-source Loopback0
+ 	neighbor 192.172.100.1 next-hop-self
+ 	neighbor 192.172.100.2 remote-as 590169
+ 	neighbor 192.172.100.2 update-source Loopback0
+ 	neighbor 192.172.100.2 next-hop-self
+ 	neighbor 192.172.100.3 remote-as 590169
+ 	neighbor 192.172.100.3 update-source Loopback0
+  	neighbor 192.172.100.3 next-hop-self
+  address-family ipv6 unicast
+  	network 2001:192:100::/48
+  	redistribute ospf 300
+  	neighbor 2001:192:100::1 remote-as 590169
+ 	neighbor 2001:192:100::1 update-source Loopback0
+ 	neighbor 2001:192:100::1 next-hop-self
+ 	neighbor 2001:192:100::2 remote-as 590169
+ 	neighbor 2001:192:100::2 update-source Loopback0
+ 	neighbor 2001:192:100::2 next-hop-self
+ 	neighbor 2001:192:100::3 remote-as 590169
+ 	neighbor 2001:192:100::3 update-source Loopback0
+ 	neighbor 2001:192:100::3 next-hop-self
+\end{lstlisting}
+
+Pode ser verificado nas imagens seguintes o funcionamento de Internal BGP.
+
+\begin{figure}[H]
+\centerline{\includegraphics[width=300pt]{lisboa_bgp_ipv4.png}}
+\caption{Tabelas de redes aprendidas por BGP e OSPF em IPv4}
+\label{schema}
+\end{figure}
+
+\begin{figure}[H]
+\centerline{\includegraphics[width=300pt]{lisboa_bgp_ipv6.png}}
+\caption{Tabelas de redes aprendidas por BGP e OSPF em IPv6}
+\label{schema}
+\end{figure}
+
 \section{External BGP}
-\#EDUARDO
+Foi necessário também estabelecer ligações BGP com outros AS de forma a termos acesso a outros serviços como por exemplo PTSN. As ligações estabelecidas foram com o AS8657 pertencente ao ISP S e com o AS 34419 pertencente ao ISP L. Ao serem estabelecidas estas ligações o ISP X passou a ter conetividade com o Internet Core bem como as redes pertencentes a esses AS. As seguintes configurações foram utilizadas.
+
+\begin{lstlisting}[caption=External BGP - Router Porto]
+router bgp 9.345
+  address-family ipv4 unicast
+  	neighbor 4.20.20.1 remote-as 34419
+  address-family ipv6 unicast
+  	neighbor 2001:420:: remote-as 34419
+\end{lstlisting}
+
+\begin{lstlisting}[caption=External BGP - Router Lisboa]
+router bgp 9.345
+  address-family ipv4 unicast
+  	neighbor 4.20.20.5 remote-as 34419
+	neighbor 4.20.20.13 remote-as 8657
+  address-family ipv6 unicast
+  	neighbor 2001:420::2 remote-as 34419
+ 	neighbor 2001:420::6 remote-as 8657
+\end{lstlisting}
+
+Através das configurações definidas anteriormente é possível verificar nas tabelas de redes aprendidas por BGP dos routers de Londres e Sintra que o External BGP se encontra bem configurado.
+
+\begin{figure}[H]
+\centerline{\includegraphics[width=300pt]{private_as_removal_ipv4.png}}
+\caption{Tabelas de redes aprendidas por BGP em IPv4}
+\label{schema}
+\end{figure}
+
+\begin{figure}[H]
+\centerline{\includegraphics[width=300pt]{private_as_removal_ipv6.png}}
+\caption{Tabelas de redes aprendidas por BGP em IPv6}
+\label{schema}
+\end{figure}
+
 \section{Private AS}
-\#EDUARDO
+Houve a necessidade de configurar um AS privado para a empresa B. Esse AS com o identificador 65000 é filtrado dos anuncios de BGP para os outros AS. A seguinte configuração foi efetuada nos routers do Porto e Lisboa:
+
+\begin{lstlisting}[caption=Remoção do AS privado - Router Porto]
+router bgp 9.345
+  address-family ipv4 unicast
+    neighbor 4.20.20.1 remove-private-as
+  address-family ipv6 unicast
+  	neighbor 2001:420:: remove-private-as
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Remoção do AS privado - Router Lisboa]
+router bgp 9.345
+  address-family ipv4 unicast
+    neighbor 4.20.20.5 remove-private-as
+    neighbor 4.20.20.13 remove-private-as
+  address-family ipv6 unicast
+  	neighbor 2001:420::2 remove-private-as
+  	neighbor 2001:420::6 remove-private-as
+\end{lstlisting}
+
+Estas configurações removem o AS privado do caminho anunciado por BGP pelos routers do Porto e Lisboa, como se pode verificar nas imagens seguintes.
+
+\begin{figure}[H]
+\centerline{\includegraphics[width=300pt]{private_as_removal_ipv4.png}}
+\caption{Remoção do AS privado em IPv4}
+\label{schema}
+\end{figure}
+
+\begin{figure}[H]
+\centerline{\includegraphics[width=300pt]{private_as_removal_ipv6.png}}
+\caption{Remoção do AS privado em IPv6}
+\label{schema}
+\end{figure}
+
 
 \section{Routing Constraints}
 
@@ -190,10 +391,7 @@ route-map NON_TRANSIT permit 10
  match as-path 4
 \end{lstlisting}
 
-Sendo depois aplica-se esta route-map em Lisboa e no Porto em todos os neighbors ao anunciar rotas para fora (neighbor VIZINHO route-map NON\_TRANSIT out)
-
-\section{Changes for IPv6}
-\#EDUARDO
+Sendo depois aplica-se esta route-map em Lisboa e no Porto em todos os neighbors ao anunciar rotas para fora (neighbor VIZINHO route-map NON\_TRANSIT out).
 
 \chapter{MPLS}
 
