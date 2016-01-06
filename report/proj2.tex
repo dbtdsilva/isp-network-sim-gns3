@@ -109,6 +109,7 @@ router bgp 9.345
 \end{lstlisting}
 
 \begin{lstlisting}[caption=Internal BGP - Router Lisboa]
+  	!route-map, eBGP, remove-private-as foi tudo omitido neste ponto
 router bgp 9.345
   address-family ipv4 unicast
   	network 192.172.100.0 mask 255.255.255.128
@@ -137,6 +138,7 @@ router bgp 9.345
 \end{lstlisting}
 
 \begin{lstlisting}[caption=Internal BGP  \& OSPF Redistribute - Router Aveiro]
+  	!route-map, eBGP, remove-private-as foi tudo omitido neste ponto
 router bgp 9.345
   address-family ipv4 unicast
   	network 192.172.100.0 mask 255.255.255.128
@@ -152,6 +154,7 @@ router bgp 9.345
  	neighbor 192.172.100.4 remote-as 590169
  	neighbor 192.172.100.4 update-source Loopback0
   	neighbor 192.172.100.4 next-hop-self
+  	!route-map, eBGP, remove-private-as foi tudo omitido neste ponto
   address-family ipv6 unicast
   	network 2001:192:100::/48
   	redistribute ospf 200
@@ -167,7 +170,10 @@ router bgp 9.345
  	neighbor 2001:192:100::4 next-hop-self
 \end{lstlisting}
 
+A configuração de Faro é bastante similar a de Aveiro:\\
+
 \begin{lstlisting}[caption=Internal BGP  \& OSPF Redistribute - Router Faro]
+  	!route-map, eBGP, remove-private-as foi tudo omitido neste ponto
 router bgp 9.345
   address-family ipv4 unicast
   	network 192.172.100.0 mask 255.255.255.128
@@ -175,26 +181,24 @@ router bgp 9.345
   	redistribute ospf 100 route-map rm-priv-default4
     neighbor 192.172.100.1 remote-as 590169
 	neighbor 192.172.100.1 update-source Loopback0
- 	neighbor 192.172.100.1 next-hop-self
  	neighbor 192.172.100.2 remote-as 590169
  	neighbor 192.172.100.2 update-source Loopback0
- 	neighbor 192.172.100.2 next-hop-self
  	neighbor 192.172.100.3 remote-as 590169
  	neighbor 192.172.100.3 update-source Loopback0
-  	neighbor 192.172.100.3 next-hop-self
   address-family ipv6 unicast
   	network 2001:192:100::/48
   	redistribute ospf 300
   	neighbor 2001:192:100::1 remote-as 590169
  	neighbor 2001:192:100::1 update-source Loopback0
- 	neighbor 2001:192:100::1 next-hop-self
  	neighbor 2001:192:100::2 remote-as 590169
  	neighbor 2001:192:100::2 update-source Loopback0
- 	neighbor 2001:192:100::2 next-hop-self
  	neighbor 2001:192:100::3 remote-as 590169
  	neighbor 2001:192:100::3 update-source Loopback0
- 	neighbor 2001:192:100::3 next-hop-self
 \end{lstlisting}
+
+Nas configurações é possível ver ``update-source Loopback0'' que é o que permite estabelecer as ligações TCP das relação peer do BGP, sendo que a interface de Loopback 0 nunca vai abaixo é melhor ser definida sobre ela.\\
+
+Para além disso também se usou ``next-hop-self'' quando se tinha uma relação de iBGP na fronteira do AS, porque era necessário mudar o atributo next-hop que o router de Lisboa e Porto recebiam das relação eBGP (de Sintra e London) para eles próprios, se não a rede de iBGP não conhecia o next-hop anunciado e ia falhar a comunicação.
 
 Pode ser verificado nas imagens seguintes o funcionamento de Internal BGP.
 
@@ -712,6 +716,7 @@ exten => _X!,4,HangUp()
 No servidor 1 foi preciso criar um peer para permitir que o mesmo se consiga ligar ao servidor 2. Foi também preciso criar uma nova regra nas extensões do servidor 1 que reencaminhe todas as chamadas VoIP com destino em extensões externas para o servidor 2, assim sendo foi criado o padrão \_X!, onde o underscore indica o inicio do padrão, o X indica qualquer número e o ! todas as extensões não definidas anteriormente. Caso se encontre alguma chamada para uma extensão deste tipo, o servidor 1 deve fazer uma SIP URI dial para o servidor 2 para onde envia a extensão.\\
 No servidor 2 foi preciso criar um peer para indicar que o servidor 1 se vai ligar a ele. As extensões são idênticas às definidas anteriormente.
 
+\listoffigures
 \lstlistoflistings
 \bibliographystyle{plain}
 \bibliography{proj2}
