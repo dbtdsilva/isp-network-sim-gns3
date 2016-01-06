@@ -1,0 +1,11 @@
+*.lof
+*.lol
+*.aux
+*.bib
+*.log
+*.out
+*.toc
+*.zip
+*.txt
+captures
+

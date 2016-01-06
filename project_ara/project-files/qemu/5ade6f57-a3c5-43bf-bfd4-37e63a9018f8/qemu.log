@@ -1,0 +1,3 @@
+Warning: nic e1000.2 has no peer
+Warning: nic e1000.3 has no peer
+qemu: terminating on signal 15 from pid 9143
